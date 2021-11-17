@@ -42,7 +42,7 @@ export default new Vuex.Store({
       });
     },
     conversation(state, getters) {
-      //TODO
+      // console.log(getters);
     }
   },
   mutations: {
@@ -61,6 +61,10 @@ export default new Vuex.Store({
       state.users = users;
     },
 
+    setConversations(state, convs) {
+      state.conversations = convs;
+    },
+
     upsertUser(state, { user }) {
       const localUserIndex = state.users.findIndex(
         _user => _user.username === user.username
@@ -76,7 +80,17 @@ export default new Vuex.Store({
     },
 
     upsertConversation(state, { conversation }) {
-      //TODO
+      const localConversationIndex = state.users.findIndex(
+        findConv => findConv.username === conversation.username
+      );
+
+      if (localConversationIndex !== -1) {
+        Vue.set(state.conversations, localConversationIndex, conversation);
+      } else {
+        state.conversations.push({
+          ...conversation
+        });
+      }
     }
   },
   actions: {
@@ -118,15 +132,21 @@ export default new Vuex.Store({
       });
     },
 
+    fetchConversations({ commit }) {
+      Vue.prototype.$client.getConversations().then(({ convs }) => {
+        commit("setConversations", convs);
+      });
+    },
+
     createOneToOneConversation({ commit }, username) {
       const promise = Vue.prototype.$client.getOrCreateOneToOneConversation(
         username
       );
 
       promise.then(({ conversation }) => {
-        // commit("upsertConversation", {
-        //   conversation
-        // });
+        commit("upsertConversation", {
+          conversation
+        });
 
         router.push({
           name: "Conversation",

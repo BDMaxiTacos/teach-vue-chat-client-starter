@@ -35,7 +35,42 @@
         <span>Messages</span>
       </div>
     </div>
+
     <div class="conversations">
+      <div class="conversation-search">
+        <div class="ui fluid search">
+          <div class="ui icon input">
+            <input
+              class="prompt"
+              placeholder="Rechercher une conversation"
+              type="text"
+            />
+            <i class="search icon"> </i>
+          </div>
+        </div>
+      </div>
+      <div
+        v-for="conversation in conversations"
+        :key="conversation.id"
+        class="conversation"
+        title=""
+        @click="openConversation(conversation.id)"
+      >
+        <a class="avatar">
+          <span>
+            <i class="users icon"> </i>
+          </span>
+        </a>
+        <div class="content">
+          <div class="metadata">
+            <div class="title">Groupe: Gael, Bob</div>
+            <span class="time">01:36:38</span>
+          </div>
+          <div class="text">Incroyable !</div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="conversations">
       <div class="conversation-search">
         <div class="ui fluid search">
           <div class="ui icon input">
@@ -110,7 +145,7 @@
           <div class="text">Nouvelle conversation</div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 

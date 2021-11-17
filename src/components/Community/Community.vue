@@ -65,7 +65,7 @@
       <button class="ui primary big button" @click="openConversation">
         <i class="conversation icon"></i>
         <span>
-          Ouvrir la conversation (2)
+          Ouvrir la conversation ({{ selected_users.length }})
         </span>
       </button>
     </div>
@@ -94,7 +94,9 @@ export default {
           this.selected_users.map(user => user.username)
         );
       } else {
-        promise = this.createOneToOneConversation(this.selected_users[0]);
+        promise = this.createOneToOneConversation(
+          this.selected_users[0].username
+        );
       }
 
       promise.finally(() => {
@@ -116,8 +118,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["users"]),
-
+    ...mapGetters(["users"])
   }
 };
 </script>

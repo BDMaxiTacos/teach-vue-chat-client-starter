@@ -69,7 +69,7 @@ export default new Vuex.Store({
         });
     },
     conversation(state, getters) {
-      console.log(getters);
+      return getters.conversations.find(el => el.id == state.currentConversationId);
     }
   },
   mutations: {

@@ -54,7 +54,7 @@
         :key="conversation.id"
         class="conversation"
         title=""
-        @click="openConversation(conversation.id)"
+        @click="openConversation(conversation)"
       >
         <a class="avatar">
           <span>
@@ -63,10 +63,10 @@
         </a>
         <div class="content">
           <div class="metadata">
-            <div class="title">Groupe: Gael, Bob</div>
-            <span class="time">01:36:38</span>
+            <div class="title">Groupe: {{ conversation.participants.join(", ") }}</div>
+            <span class="time">{{ new Date(conversation.updated_at).toLocaleString() }}</span>
           </div>
-          <div class="text">Incroyable !</div>
+          <div class="text">{{ conversation.messages[conversation.messages.length-1] }}</div>
         </div>
       </div>
     </div>
@@ -169,7 +169,8 @@ export default {
       router.push({ name: "Search" });
     },
     openConversation(id) {
-      router.push({ name: "Conversation", params: { id } });
+      console.log(id);
+      // router.push({ name: "Conversation", params: { id } });
     }
   },
   computed: {

@@ -63,6 +63,7 @@ export default new Vuex.Store({
 
     setConversations(state, convs) {
       state.conversations = convs;
+      console.log(convs);
     },
 
     upsertUser(state, { user }) {
@@ -123,7 +124,7 @@ export default new Vuex.Store({
 
     initializeAfterAuthentication({ dispatch }) {
       dispatch("fetchUsers");
-      //TODO: dispatch("fetchConversations");
+      dispatch("fetchConversations");
     },
 
     fetchUsers({ commit }) {
@@ -133,8 +134,8 @@ export default new Vuex.Store({
     },
 
     fetchConversations({ commit }) {
-      Vue.prototype.$client.getConversations().then(({ convs }) => {
-        commit("setConversations", convs);
+      Vue.prototype.$client.getConversations().then(({ conversations }) => {
+        commit("setConversations", conversations);
       });
     },
 

@@ -7,6 +7,7 @@
             class="prompt"
             type="text"
             placeholder="Rechercher un utilisateur"
+            v-model="search"
           />
           <i class="search icon"></i>
         </div>
@@ -53,7 +54,7 @@
     </div>-->
 
     <div class="users">
-      <div v-for="user in users" :key="user.id">
+      <div v-for="user in filtre" :key="user.id">
         <div class="user" @click="selectUser(user)" :class="{ selected: isSelected(user) }">
           <img :src="user.picture_url" />
           <span>{{ user.username }}</span>
@@ -79,7 +80,8 @@ export default {
   name: "Community",
   data() {
     return {
-      selected_users: []
+      selected_users: [],
+      search: null
     };
   },
   methods: {
@@ -98,7 +100,6 @@ export default {
           this.selected_users[0].username
         );
       }
-
       promise.finally(() => {
         console.log("Conversation ouverte !");
       });
@@ -118,7 +119,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["users"])
+    ...mapGetters(["users"]),
+    filtre() {
+      if (this.search != null && this.search != "") {
+        return this.$store.getters.users.filter(
+          el => el.username.toLowerCase().includes(this.search.toLowerCase())
+        );
+      } else {
+        return this.$store.getters.users
+      }
+    }
   }
 };
 </script>

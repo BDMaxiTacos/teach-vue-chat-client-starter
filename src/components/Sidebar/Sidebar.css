@@ -125,11 +125,11 @@
     border-radius: 5px;
 }
 
-.available .icon {
+.available .icon:not(.img) {
     color: #42b72a;
 }
 
-.new .icon {
+.new .icon:not(.img) {
     color: dodgerblue;
 }
 

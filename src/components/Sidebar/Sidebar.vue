@@ -69,14 +69,24 @@
       >
         <a class="avatar">
           <span v-if="!conversation.user">
-            <i class="users icon"> </i>
+            <i class="users icon img"> </i>
           </span>
           <img v-if="conversation.user" :src="conversation.user.picture_url" class="ui circular image" />
         </a>
         <div class="content">
           <div class="metadata">
-            <div class="title"><i v-if="conversation.userConnected" class="ui small icon circle"> </i>
-              {{ conversation.title }}
+            <div class="title">
+              <i
+                v-if="conversation.userConnected || conversation.isNotSeen"
+                class="ui small icon circle"
+              >
+              </i>
+              <span v-if="conversation.titre.length === 0">
+                {{ conversation.title }}
+              </span>
+              <span v-else>
+                {{ conversation.titre }}
+              </span>
             </div>
             <span class="time">
               {{ new Date(conversation.updated_at).toLocaleString() }}
@@ -88,84 +98,6 @@
         </div>
       </div>
     </div>
-    <!-- delete
-      <div class="conversations">
-        <div class="conversation-search">
-          <div class="ui fluid search">
-            <div class="ui icon input">
-              <input
-                class="prompt"
-                placeholder="Rechercher une conversation"
-                type="text"
-              />
-              <i class="search icon"> </i>
-            </div>
-          </div>
-        </div>
-        <div class="conversation new" title="Bob" @click="openConversation(0)">
-          <a class="avatar">
-            <img src="https://source.unsplash.com/7omHUGhhmZ0/100x100" />
-          </a>
-          <div class="content">
-            <div class="metadata">
-              <div class="title"><i class="ui small icon circle"> </i> Bob</div>
-              <span class="time">01:30:58</span>
-            </div>
-            <div class="text">C'est vraiment super Alice !</div>
-          </div>
-        </div>
-        <div
-          class="conversation"
-          title="Groupe: Gael, Bob"
-          @click="openConversation(0)"
-        >
-          <a class="avatar">
-            <span>
-              <i class="users icon"> </i>
-            </span>
-          </a>
-          <div class="content">
-            <div class="metadata">
-              <div class="title">Groupe: Gael, Bob</div>
-              <span class="time">01:36:38</span>
-            </div>
-            <div class="text">Incroyable !</div>
-          </div>
-        </div>
-        <div
-          class="conversation available"
-          title="Cha"
-          @click="openConversation(0)"
-        >
-          <a class="avatar">
-            <img src="https://source.unsplash.com/8wbxjJBrl3k/100x100" />
-          </a>
-          <div class="content">
-            <div class="metadata">
-              <div class="title"><i class="ui small icon circle"> </i> Cha</div>
-              <span class="time">01:47:50</span>
-            </div>
-            <div class="text">Nouvelle conversation</div>
-          </div>
-        </div>
-        <div
-          class="conversation selected"
-          title="Derek"
-          @click="openConversation(0)"
-        >
-          <a class="avatar">
-            <img src="https://source.unsplash.com/FUcupae92P4/100x100" />
-          </a>
-          <div class="content">
-            <div class="metadata">
-              <div class="title">Derek</div>
-              <span class="time">01:48:00</span>
-            </div>
-            <div class="text">Nouvelle conversation</div>
-          </div>
-        </div>
-      </div>
-     delete -->
   </div>
 </template>
 

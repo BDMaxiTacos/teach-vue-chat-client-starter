@@ -71,6 +71,7 @@ export default new Vuex.Store({
             ...conversation,
             userConnected: connected,
             user: convuser,
+            titre: "",
             lastMessage: lastmsg,
             isNotSeen: boolSeen
           };

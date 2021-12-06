@@ -59,12 +59,20 @@ export default new Vuex.Store({
             lastmsg = conversation.messages[lengthmsgs - 1].content;
           }
 
+          console.log(conversation.seen[state.user.username].message_id);
+
+          let boolSeen =
+            conversation.seen[state.user.username] === -1 ||
+            conversation.seen[state.user.username].message_id !==
+              conversation.messages[conversation.messages.length - 1].id;
+
           conversation.title = tabpart.join(", ");
           return {
             ...conversation,
             userConnected: connected,
             user: convuser,
-            lastMessage: lastmsg
+            lastMessage: lastmsg,
+            isNotSeen: boolSeen
           };
         });
     },
@@ -119,14 +127,19 @@ export default new Vuex.Store({
       }
     },
     upsertMessage(state, { conversation_id, message }) {
+      console.log("message",conversation_id,message);
       const localConversationIndex = state.conversations.findIndex(
         findConv => findConv.id === conversation_id
       );
 
-      if (localConversationIndex !== -1) {
+      const localMessageIndex = state.conversations[localConversationIndex].messages.findIndex(
+        findMsg => findMsg.id === message.id
+      );
+
+      if (localMessageIndex !== -1) {
         Vue.set(
           state.conversations[localConversationIndex].messages,
-          localConversationIndex,
+          localMessageIndex,
           message
         );
       } else {

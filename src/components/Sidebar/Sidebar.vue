@@ -60,8 +60,8 @@
         class="conversation"
         :class="{
           selected: isSelected === conversation.id,
-          available: conversation.userConnected
-          // new: conversation.messages[conversation.messages.length-1]
+          available: conversation.userConnected && !conversation.boolSeen,
+          new: conversation.isNotSeen
         }"
         title=""
         @click="openConversation(conversation.id)"

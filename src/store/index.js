@@ -34,17 +34,39 @@ export default new Vuex.Store({
       }));
     },
     conversations(state) {
-      return state.conversations.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at)).map(conversation => {
-        let connected = state.users.some(
-          u => conversation.participants.includes(u.username) && u.awake && u.username !== state.user.username
-        );
-        let tabpart = conversation.participants.filter(s => s !== state.user.username);
-        conversation.title = tabpart.join(", ");
-        return {
-          ...conversation,
-          userConnected: connected
-        };
-      });
+      return state.conversations
+        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+        .map(conversation => {
+          let connected = state.users.some(
+            u =>
+              conversation.participants.includes(u.username) &&
+              u.awake &&
+              u.username !== state.user.username
+          );
+
+          let tabpart = conversation.participants.filter(
+            s => s !== state.user.username
+          );
+
+          let convuser;
+          if (tabpart.length === 1) {
+            convuser = state.users.find(u => tabpart[0] === u.username);
+          }
+
+          let lastmsg,
+            lengthmsgs = conversation.messages.length;
+          if (lengthmsgs >= 1) {
+            lastmsg = conversation.messages[lengthmsgs - 1].content;
+          }
+
+          conversation.title = tabpart.join(", ");
+          return {
+            ...conversation,
+            userConnected: connected,
+            user: convuser,
+            lastMessage: lastmsg
+          };
+        });
     },
     conversation(state, getters) {
       console.log(getters);
@@ -93,6 +115,23 @@ export default new Vuex.Store({
       } else {
         state.conversations.push({
           ...conversation
+        });
+      }
+    },
+    upsertMessage(state, { conversation_id, message }) {
+      const localConversationIndex = state.conversations.findIndex(
+        findConv => findConv.id === conversation_id
+      );
+
+      if (localConversationIndex !== -1) {
+        Vue.set(
+          state.conversations[localConversationIndex].messages,
+          localConversationIndex,
+          message
+        );
+      } else {
+        state.conversations[localConversationIndex].messages.push({
+          ...message
         });
       }
     }

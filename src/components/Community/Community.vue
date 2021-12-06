@@ -90,11 +90,11 @@ export default {
     ...mapGetters(["users"]),
     filtre() {
       if (this.search != null && this.search != "") {
-        return this.$store.getters.users.filter(
-          el => el.username.toLowerCase().includes(this.search.toLowerCase())
+        return this.$store.getters.users.filter(el =>
+          el.username.toLowerCase().includes(this.search.toLowerCase())
         );
       } else {
-        return this.$store.getters.users
+        return this.$store.getters.users;
       }
     }
   }

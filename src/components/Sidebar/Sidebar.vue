@@ -56,23 +56,29 @@
         :class="{
           selected: isSelected === conversation.id,
           available: conversation.userConnected
+          // new: conversation.messages[conversation.messages.length-1]
         }"
         title=""
         @click="openConversation(conversation.id)"
       >
         <a class="avatar">
-          <span>
+          <span v-if="!conversation.user">
             <i class="users icon"> </i>
           </span>
+          <img v-if="conversation.user" :src="conversation.user.picture_url" class="ui circular image" />
         </a>
         <div class="content">
           <div class="metadata">
             <div class="title"><i v-if="conversation.userConnected" class="ui small icon circle"> </i>
               {{ conversation.title }}
             </div>
-            <span class="time">{{ new Date(conversation.updated_at).toLocaleString() }}</span>
+            <span class="time">
+              {{ new Date(conversation.updated_at).toLocaleString() }}
+            </span>
           </div>
-          <div class="text">{{ conversation.messages[conversation.messages.length-1] }}</div>
+          <div class="text">
+            {{ conversation.lastMessage }}
+          </div>
         </div>
       </div>
     </div>

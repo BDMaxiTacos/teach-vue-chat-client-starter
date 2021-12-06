@@ -67,7 +67,7 @@
         </a>
         <div class="content">
           <div class="metadata">
-            <div class="title">{{ conversation.id }} Groupe: <i v-if="conversation.userConnected" class="ui small icon circle"> </i>
+            <div class="title"><i v-if="conversation.userConnected" class="ui small icon circle"> </i>
               {{ conversation.title }}
             </div>
             <span class="time">{{ new Date(conversation.updated_at).toLocaleString() }}</span>

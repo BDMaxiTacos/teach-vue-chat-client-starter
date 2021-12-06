@@ -34,12 +34,11 @@ export default new Vuex.Store({
       }));
     },
     conversations(state) {
-      return state.conversations.map(conversation => {
+      return state.conversations.sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at)).map(conversation => {
         let connected = state.users.some(
           u => conversation.participants.includes(u.username) && u.awake && u.username !== state.user.username
         );
         let tabpart = conversation.participants.filter(s => s !== state.user.username);
-        console.log(tabpart);
         conversation.title = tabpart.join(", ");
         return {
           ...conversation,
@@ -68,7 +67,6 @@ export default new Vuex.Store({
     },
     setConversations(state, convs) {
       state.conversations = convs;
-      console.log("convs",convs);
     },
 
     upsertUser(state, { user }) {

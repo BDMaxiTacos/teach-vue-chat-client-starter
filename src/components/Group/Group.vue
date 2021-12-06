@@ -92,7 +92,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([])
+    ...mapGetters(["conversations"])
   },
   methods: {
     ...mapActions([])

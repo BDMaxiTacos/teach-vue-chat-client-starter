@@ -43,6 +43,10 @@
       </div>
     </div>
 
+    <!--
+     
+     -->
+
     <div class="conversation-container">
       <div class="conversation-main">
         <div class="conversation-body" id="scroll">
@@ -324,21 +328,20 @@
             </div>
           </div>
         </div>
-
-        <div class="typing">
-          <div class="wrapper">
-            Alice est en train d'écrire...
-          </div>
-        </div>
+        <!--        <div class="typing">-->
+        <!--          <div class="wrapper">-->
+        <!--            Alice est en train d'écrire...-->
+        <!--          </div>-->
+        <!--        </div>-->
         <div class="conversation-footer">
           <div class="wrapper">
-            <p>
-              <i title="Abandonner" class="circular times small icon link"></i>
-              Répondre à Alice :
-              <span>
-                On peut même éditer ou supprimer des messages !
-              </span>
-            </p>
+            <!--            <p>-->
+            <!--              <i title="Abandonner" class="circular times small icon link"></i>-->
+            <!--              Répondre à Alice :-->
+            <!--              <span>-->
+            <!--                On peut même éditer ou supprimer des messages !-->
+            <!--              </span>-->
+            <!--            </p>-->
 
             <div class="ui fluid search">
               <div class="ui icon input">

@@ -53,8 +53,12 @@
         v-for="conversation in conversations"
         :key="conversation.id"
         class="conversation"
+        :class="{
+          selected: isSelected === conversation.id,
+          available: conversation.userConnected
+        }"
         title=""
-        @click="openConversation(conversation)"
+        @click="openConversation(conversation.id)"
       >
         <a class="avatar">
           <span>
@@ -63,89 +67,92 @@
         </a>
         <div class="content">
           <div class="metadata">
-            <div class="title">Groupe: {{ conversation.participants.join(", ") }}</div>
+            <div class="title">{{ conversation.id }} Groupe: <i v-if="conversation.userConnected" class="ui small icon circle"> </i> {{
+                conversation.title }}</div>
             <span class="time">{{ new Date(conversation.updated_at).toLocaleString() }}</span>
           </div>
           <div class="text">{{ conversation.messages[conversation.messages.length-1] }}</div>
         </div>
       </div>
     </div>
-    <!-- <div class="conversations">
-      <div class="conversation-search">
-        <div class="ui fluid search">
-          <div class="ui icon input">
-            <input
-              class="prompt"
-              placeholder="Rechercher une conversation"
-              type="text"
-            />
-            <i class="search icon"> </i>
+    <!-- delete
+      <div class="conversations">
+        <div class="conversation-search">
+          <div class="ui fluid search">
+            <div class="ui icon input">
+              <input
+                class="prompt"
+                placeholder="Rechercher une conversation"
+                type="text"
+              />
+              <i class="search icon"> </i>
+            </div>
+          </div>
+        </div>
+        <div class="conversation new" title="Bob" @click="openConversation(0)">
+          <a class="avatar">
+            <img src="https://source.unsplash.com/7omHUGhhmZ0/100x100" />
+          </a>
+          <div class="content">
+            <div class="metadata">
+              <div class="title"><i class="ui small icon circle"> </i> Bob</div>
+              <span class="time">01:30:58</span>
+            </div>
+            <div class="text">C'est vraiment super Alice !</div>
+          </div>
+        </div>
+        <div
+          class="conversation"
+          title="Groupe: Gael, Bob"
+          @click="openConversation(0)"
+        >
+          <a class="avatar">
+            <span>
+              <i class="users icon"> </i>
+            </span>
+          </a>
+          <div class="content">
+            <div class="metadata">
+              <div class="title">Groupe: Gael, Bob</div>
+              <span class="time">01:36:38</span>
+            </div>
+            <div class="text">Incroyable !</div>
+          </div>
+        </div>
+        <div
+          class="conversation available"
+          title="Cha"
+          @click="openConversation(0)"
+        >
+          <a class="avatar">
+            <img src="https://source.unsplash.com/8wbxjJBrl3k/100x100" />
+          </a>
+          <div class="content">
+            <div class="metadata">
+              <div class="title"><i class="ui small icon circle"> </i> Cha</div>
+              <span class="time">01:47:50</span>
+            </div>
+            <div class="text">Nouvelle conversation</div>
+          </div>
+        </div>
+        <div
+          class="conversation selected"
+          title="Derek"
+          @click="openConversation(0)"
+        >
+          <a class="avatar">
+            <img src="https://source.unsplash.com/FUcupae92P4/100x100" />
+          </a>
+          <div class="content">
+            <div class="metadata">
+              <div class="title">Derek</div>
+              <span class="time">01:48:00</span>
+            </div>
+            <div class="text">Nouvelle conversation</div>
           </div>
         </div>
       </div>
-      <div class="conversation new" title="Bob" @click="openConversation(0)">
-        <a class="avatar">
-          <img src="https://source.unsplash.com/7omHUGhhmZ0/100x100" />
-        </a>
-        <div class="content">
-          <div class="metadata">
-            <div class="title"><i class="ui small icon circle"> </i> Bob</div>
-            <span class="time">01:30:58</span>
-          </div>
-          <div class="text">C'est vraiment super Alice !</div>
-        </div>
-      </div>
-      <div
-        class="conversation"
-        title="Groupe: Gael, Bob"
-        @click="openConversation(0)"
-      >
-        <a class="avatar">
-          <span>
-            <i class="users icon"> </i>
-          </span>
-        </a>
-        <div class="content">
-          <div class="metadata">
-            <div class="title">Groupe: Gael, Bob</div>
-            <span class="time">01:36:38</span>
-          </div>
-          <div class="text">Incroyable !</div>
-        </div>
-      </div>
-      <div
-        class="conversation available"
-        title="Cha"
-        @click="openConversation(0)"
-      >
-        <a class="avatar">
-          <img src="https://source.unsplash.com/8wbxjJBrl3k/100x100" />
-        </a>
-        <div class="content">
-          <div class="metadata">
-            <div class="title"><i class="ui small icon circle"> </i> Cha</div>
-            <span class="time">01:47:50</span>
-          </div>
-          <div class="text">Nouvelle conversation</div>
-        </div>
-      </div>
-      <div
-        class="conversation selected"
-        title="Derek"
-        @click="openConversation(0)"
-      >
-        <a class="avatar">
-          <img src="https://source.unsplash.com/FUcupae92P4/100x100" />
-        </a>
-        <div class="content">
-          <div class="metadata">
-            <div class="title">Derek</div>
-            <span class="time">01:48:00</span>
-          </div>
-          <div class="text">Nouvelle conversation</div>
-        </div>
-      </div>
-    </div>-->
+     delete -->
   </div>
 </template>
 
@@ -157,7 +164,8 @@ export default {
   name: "Sidebar",
   data() {
     return {
-      search: ""
+      search: "",
+      isSelected: undefined
     };
   },
   methods: {
@@ -169,8 +177,8 @@ export default {
       router.push({ name: "Search" });
     },
     openConversation(id) {
-      console.log(id);
-      // router.push({ name: "Conversation", params: { id } });
+      router.push({ name: "Conversation", params: { id } });
+      this.isSelected = id;
     }
   },
   computed: {

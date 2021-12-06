@@ -34,6 +34,11 @@
         <br />
         <span>Messages</span>
       </div>
+      <div class="blue button" @click="openGroupDevInfo">
+        <i class="search icon"> </i>
+        <br />
+        <span>GroupeDev</span>
+      </div>
     </div>
 
     <div class="conversations">
@@ -167,6 +172,9 @@ export default {
     },
     openMessageSearch() {
       router.push({ name: "Search" });
+    },
+    openGroupDevInfo() {
+      router.push({ name: "GroupDev" });
     },
     openConversation(id) {
       console.log(id);

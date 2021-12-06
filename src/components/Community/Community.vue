@@ -84,7 +84,7 @@ export default {
   data() {
     return {
       selected_users: [],
-      search: null,
+      search: "",
       convOpenInWork: false
     };
   },
@@ -127,7 +127,7 @@ export default {
   computed: {
     ...mapGetters(["users"]),
     filtre() {
-      if (this.search != null && this.search != "") {
+      if (this.search != "") {
         return this.$store.getters.users.filter(
           el => el.username.toLowerCase().includes(this.search.toLowerCase())
         );

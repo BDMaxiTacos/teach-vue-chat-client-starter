@@ -35,14 +35,20 @@ export default new Vuex.Store({
     },
     conversations(state) {
       return state.conversations.map(conversation => {
+        let connected = state.users.some(
+          u => conversation.participants.includes(u.username) && u.awake && u.username !== state.user.username
+        );
+        let tabpart = conversation.participants.filter(s => s !== state.user.username);
+        console.log(tabpart);
+        conversation.title = tabpart.join(", ");
         return {
-          ...conversation
-          //TODO
+          ...conversation,
+          userConnected: connected
         };
       });
     },
     conversation(state, getters) {
-      // console.log(getters);
+      console.log(getters);
     }
   },
   mutations: {
@@ -60,10 +66,9 @@ export default new Vuex.Store({
     setUsers(state, users) {
       state.users = users;
     },
-
     setConversations(state, convs) {
       state.conversations = convs;
-      console.log(convs);
+      console.log("convs",convs);
     },
 
     upsertUser(state, { user }) {
@@ -81,8 +86,8 @@ export default new Vuex.Store({
     },
 
     upsertConversation(state, { conversation }) {
-      const localConversationIndex = state.users.findIndex(
-        findConv => findConv.username === conversation.username
+      const localConversationIndex = state.conversations.findIndex(
+        findConv => findConv.id === conversation.id
       );
 
       if (localConversationIndex !== -1) {
@@ -164,9 +169,9 @@ export default new Vuex.Store({
       );
 
       promise.then(({ conversation }) => {
-        // commit("upsertConversation", {
-        //   conversation
-        // });
+        commit("upsertConversation", {
+          conversation
+        });
 
         router.push({
           name: "Conversation",

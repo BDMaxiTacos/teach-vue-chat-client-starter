@@ -4,6 +4,7 @@ import Community from "@/components/Community/Community";
 import Conversation from "@/components/Conversation/Conversation";
 import Search from "@/components/Search/Search";
 import Server from "@/components/Server/Server";
+import GroupDev from "@/components/GroupDev/GroupDev";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     path: "/server",
     name: "Server",
     component: Server
+  },
+  {
+    path: "/groupdev",
+    name: "GroupDev",
+    component: GroupDev
   }
 ];
 

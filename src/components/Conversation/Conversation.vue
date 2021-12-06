@@ -5,14 +5,22 @@
       <!--        class="avatar"-->
       <!--        src="https://source.unsplash.com/FUcupae92P4/100x100"-->
       <!--      />-->
-      <div class="avatar">
-        <i class="ui users icon"></i>
-      </div>
+      <a class="avatar">
+        <span v-if="!conversation.user">
+          <i class="users icon img"> </i>
+        </span>
+        <img v-if="conversation.user" :src="conversation.user.picture_url" class="ui circular image" />
+      </a>
 
       <div class="title">
         <div class="ui compact">
-          <i class="icon circle"></i>
-          <span>Groupe: Alice, Bob</span>
+          <i class="icon" :class="{circle: conversation.userConnected}"></i>
+          <span v-if="conversation.titre.length === 0">
+            {{ conversation.title }}
+          </span>
+          <span v-else>
+            {{ conversation.titre }}
+          </span>
           <div class="ui simple dropdown item">
             <i class="vertical ellipsis icon"></i>
 

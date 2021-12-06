@@ -65,7 +65,10 @@
     <div class="actions">
       <button class="ui primary big button" @click="openConversation">
         <i class="conversation icon"></i>
-        <span>
+        <span v-if="convOpenInWork === true">
+          Conversation en cours d'ouverture
+        </span>
+        <span v-else>
           Ouvrir la conversation ({{ selected_users.length }})
         </span>
       </button>
@@ -81,7 +84,8 @@ export default {
   data() {
     return {
       selected_users: [],
-      search: null
+      search: null,
+      convOpenInWork: false
     };
   },
   methods: {
@@ -91,6 +95,7 @@ export default {
     ]),
     openConversation() {
       let promise;
+      this.convOpenInWork = true;
       if (this.selected_users.length > 1) {
         promise = this.createManyToManyConversation(
           this.selected_users.map(user => user.username)
@@ -101,6 +106,7 @@ export default {
         );
       }
       promise.finally(() => {
+        this.convOpenInWork = false;
         console.log("Conversation ouverte !");
       });
     },

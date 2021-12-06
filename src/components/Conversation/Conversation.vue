@@ -6,10 +6,10 @@
       <!--        src="https://source.unsplash.com/FUcupae92P4/100x100"-->
       <!--      />-->
       <a class="avatar">
-        <span v-if="!conversation.user">
+        <span v-if="conversation.user.length > 1">
           <i class="users icon img"> </i>
         </span>
-        <img v-if="conversation.user" :src="conversation.user.picture_url" class="ui circular image" />
+        <img v-if="conversation.user.length === 1" :src="conversation.user[0].picture_url" class="ui circular image" />
       </a>
 
       <div class="title">

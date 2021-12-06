@@ -48,10 +48,10 @@ export default new Vuex.Store({
             s => s !== state.user.username
           );
 
-          let convuser;
-          if (tabpart.length === 1) {
-            convuser = state.users.find(u => tabpart[0] === u.username);
-          }
+          let convuser = [];
+          tabpart.forEach(el => {
+            convuser.push(state.users.find(u => el === u.username));
+          });
 
           let lastmsg,
             lengthmsgs = conversation.messages.length;

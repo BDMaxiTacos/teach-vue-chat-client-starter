@@ -71,6 +71,7 @@ export default new Vuex.Store({
             ...conversation,
             userConnected: connected,
             user: convuser,
+            addUserList: state.users.filter(user => !convuser.includes(user)),
             titre: "",
             lastMessage: lastmsg,
             isNotSeen: boolSeen

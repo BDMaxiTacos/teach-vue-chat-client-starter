@@ -29,14 +29,11 @@
       <span>Communauté</span>
       <hr />
     </div>
-    <div class="user" v-for="user in users" :key="user.id">
+    <div class="user" v-for="user in conversation.addUserList" :key="user.id">
       <img :src="user.picture_url" />
-      <span>
-        {{ user.username }}
-      </span
-      ><i title="Ajouter à la conversation" class="circular plus icon link"></i>
+      <span>{{ user.username }} </span>
+      <i title="Ajouter à la conversation" class="circular plus icon link"></i>
     </div>
-    
   </div>
 </template>
 
@@ -47,7 +44,7 @@ export default {
   name: "Group",
   data() {
     return {
-      search: ""
+      search: "",
     };
   },
   computed: {
@@ -56,7 +53,7 @@ export default {
   methods: {
     ...mapActions([]),
     logConv(conversation){
-      console.log(conversation);
+      console.log();
     }
   }
 };

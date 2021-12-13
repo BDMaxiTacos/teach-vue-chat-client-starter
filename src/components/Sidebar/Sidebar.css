@@ -130,7 +130,7 @@
 }
 
 .new .icon:not(.img) {
-    color: dodgerblue;
+    color: dodgerblue!important;
 }
 
 .title {

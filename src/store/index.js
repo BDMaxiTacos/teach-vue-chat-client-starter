@@ -59,7 +59,6 @@ export default new Vuex.Store({
           let boolSeen;
           if (convuser.find(u => state.user.username === u.username)) {
             boolSeen =
-              conversation.seen[state.user.username] === -1 &&
               conversation.messages.length > 0 &&
               conversation.seen[state.user.username].message_id !==
                 conversation.messages[conversation.messages.length - 1].id;
@@ -69,17 +68,30 @@ export default new Vuex.Store({
             tabpart = tabpart.filter(s => s !== state.user.username);
             conversation.title = tabpart.join(", ");
           }
-          // console.log(conversation.type);
           return {
             ...conversation,
             you: state.user,
             userConnected: connected,
             user: convuser,
             addUserList: state.users.filter(user => !convuser.includes(user)),
-            titre: "",
             lastMessage: lastmsg,
             isNotSeen: boolSeen,
-            isManyToMany: conversation.type === "many_to_many"
+            isManyToMany: conversation.type === "many_to_many",
+            messages: conversation.messages.map(message => ({
+              ...message,
+              heart: Object.values(message.reactions).filter(
+                react => react === "HEART"
+              ).length,
+              thumb: Object.values(message.reactions).filter(
+                react => react === "THUMB"
+              ).length,
+              happy: Object.values(message.reactions).filter(
+                react => react === "HAPPY"
+              ).length,
+              sad: Object.values(message.reactions).filter(
+                react => react === "SAD"
+              ).length
+            }))
           };
         });
     },
@@ -136,6 +148,11 @@ export default new Vuex.Store({
       state.conversations = state.conversations.filter(conv =>
         conv.participants.includes(state.user.username)
       );
+
+      if (!conversation.isNotSeen && conversation.seen[state.user.username] !== -1){
+        conversation.seen[state.user.username].message_id =
+          conversation.messages[conversation.messages.length - 1].id;
+      }
     },
     upsertMessage(state, { conversation_id, message }) {
       const localConversationIndex = state.conversations.findIndex(
@@ -159,11 +176,9 @@ export default new Vuex.Store({
       }
     },
     updateUsers(state, { usernames }) {
-
       state.users.forEach(awakeU => {
         if (!usernames.includes(awakeU.username)){
           awakeU.awake = false;
-
         }
       });
 
@@ -309,6 +324,23 @@ export default new Vuex.Store({
           conversation
         });
       });
+
+      return promise;
+    },
+    seeConversation({ commit }, { conversation_id, message_id }) {
+      const promise = Vue.prototype.$client.seeConversation(
+        conversation_id,
+        message_id
+      );
+
+      return promise;
+    },
+    reactMessage({ commit }, { conversation_id, message_id, reaction }) {
+      const promise = Vue.prototype.$client.reactMessage(
+        conversation_id,
+        message_id,
+        reaction
+      );
 
       return promise;
     }

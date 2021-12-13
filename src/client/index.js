@@ -48,11 +48,11 @@ export default function install(Vue, store) {
   });
 
   client.on("conversationSeen", async ({ conversation }) => {
-    //TODO
+    store.commit("upsertConversation", { conversation });
   });
 
   client.on("messageReacted", async ({ conversation_id, message }) => {
-    //TODO
+    store.commit("upsertMessage", { conversation_id, message });
   });
 
   client.on("messageEdited", async ({ conversation_id, message }) => {

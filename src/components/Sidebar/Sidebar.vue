@@ -61,11 +61,11 @@
         class="conversation"
         :class="{
           selected: isSelected === conversation.id,
-          available: conversation.userConnected && !conversation.boolSeen,
+          available: conversation.userConnected && !conversation.isNotSeen,
           new: conversation.isNotSeen
         }"
         title=""
-        @click="openConversation(conversation.id)"
+        @click="openConversation(conversation.id, conversation)"
       >
         <a class="avatar">
           <span v-if="conversation.user.length > 1">
@@ -81,11 +81,8 @@
                 class="ui small icon circle"
               >
               </i>
-              <span v-if="conversation.titre.length === 0">
+              <span>
                 {{ conversation.title }}
-              </span>
-              <span v-else>
-                {{ conversation.titre }}
               </span>
             </div>
             <span class="time">
@@ -114,7 +111,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["deauthenticate"]),
+    ...mapActions(["deauthenticate","seeConversation"]),
     openCommunity() {
       router.push({ name: "Community" });
     },
@@ -124,7 +121,14 @@ export default {
     openGroupDevInfo() {
       router.push({ name: "GroupDev" });
     },
-    openConversation(id) {
+    openConversation(id, conversation) {
+      if(conversation.isNotSeen && conversation.messages.length > 0){
+        this.seeConversation({
+          conversation_id: conversation.id,
+          message_id: conversation.messages[conversation.messages.length - 1].id
+        });
+      }
+
       router.push({ name: "Conversation", params: { id } });
       this.isSelected = id;
     }

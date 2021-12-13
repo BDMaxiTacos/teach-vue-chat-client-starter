@@ -15,12 +15,10 @@
       <div class="title">
         <div class="ui compact">
           <i class="icon" :class="{circle: conversation.userConnected}"></i>
-          <span v-if="conversation.titre.length === 0">
+          <span>
             {{ conversation.title }}
           </span>
-          <span v-else>
-            {{ conversation.titre }}
-          </span>
+
           <div class="ui simple dropdown item">
             <i class="vertical ellipsis icon"></i>
 
@@ -149,7 +147,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["postMessage"]),
+    ...mapActions(["postMessage","seeConversation"]),
     scrollBottom() {
       setTimeout(() => {
         let scrollElement = document.querySelector("#scroll");
@@ -175,6 +173,13 @@ export default {
     // eslint-disable-next-line no-unused-vars
     conversation(newConversation, oldConversation) {
       this.scrollBottom();
+      if(oldConversation.messages.length !== newConversation.messages.length){
+        this.seeConversation({
+          conversation_id: newConversation.id,
+          message_id:
+            newConversation.messages[newConversation.messages.length - 1].id
+        });
+      }
     }
   }
 };

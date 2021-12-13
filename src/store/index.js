@@ -136,7 +136,6 @@ export default new Vuex.Store({
       );
     },
     upsertMessage(state, { conversation_id, message }) {
-      console.log("message", conversation_id, message);
       const localConversationIndex = state.conversations.findIndex(
         findConv => findConv.id === conversation_id
       );

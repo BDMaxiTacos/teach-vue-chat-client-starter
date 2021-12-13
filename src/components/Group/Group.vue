@@ -6,6 +6,7 @@
           type="text"
           placeholder="Rechercher un utilisateur"
           class="prompt"
+          v-model="search"
         /><i class="search icon"></i>
       </div>
     </div>
@@ -50,7 +51,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["conversation", "users"])
+    ...mapGetters(["conversation", "users"]),
+    filtre() {
+      if (this.search !== "") {
+        return this.conversation.addUserList.filter(el =>
+            el.username.toLowerCase().includes(this.search.toLowerCase())
+        );
+      } else {
+        return this.$store.getters.users;
+      }
+    }
   },
   methods: {
     ...mapActions(["addParticipant", "removeParticipant"]),

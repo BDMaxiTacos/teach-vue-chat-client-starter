@@ -304,7 +304,6 @@ export default new Vuex.Store({
       );
 
       promise.then(({ message }) => {
-        conversation.messages.push(message);
         commit("upsertConversation", {
           conversation
         });

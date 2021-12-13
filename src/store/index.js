@@ -69,6 +69,7 @@ export default new Vuex.Store({
             tabpart = tabpart.filter(s => s !== state.user.username);
             conversation.title = tabpart.join(", ");
           }
+          // console.log(conversation.type);
           return {
             ...conversation,
             you: state.user,
@@ -77,7 +78,8 @@ export default new Vuex.Store({
             addUserList: state.users.filter(user => !convuser.includes(user)),
             titre: "",
             lastMessage: lastmsg,
-            isNotSeen: boolSeen
+            isNotSeen: boolSeen,
+            isManyToMany: conversation.type === "many_to_many"
           };
         });
     },

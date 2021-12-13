@@ -1,6 +1,6 @@
 <template>
   <div class="group">
-    <div class="ui fluid search">
+    <div class="ui fluid search" v-if="conversation.isManyToMany">
       <div class="ui icon input">
         <input
           type="text"
@@ -27,15 +27,17 @@
         @click="delParticipant(conversation, user)"
       ></i>
     </div>
-    <div class="spanner">
-      <hr />
-      <span>Communauté</span>
-      <hr />
-    </div>
-    <div class="user" v-for="user in filtreAdd" :key="user.id">
-      <img :src="user.picture_url" />
-      <span>{{ user.username }} </span>
-      <i title="Ajouter à la conversation" class="circular plus icon link" @click="newParticipant(conversation, user)"></i>
+    <div v-if="conversation.isManyToMany">
+      <div class="spanner">
+        <hr />
+        <span>Communauté</span>
+        <hr />
+      </div>
+      <div class="user" v-for="user in filtreAdd" :key="user.id">
+        <img :src="user.picture_url" />
+        <span>{{ user.username }} </span>
+        <i title="Ajouter à la conversation" class="circular plus icon link" @click="newParticipant(conversation, user)"></i>
+      </div>
     </div>
   </div>
 </template>

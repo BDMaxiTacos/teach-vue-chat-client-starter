@@ -231,6 +231,22 @@ export default new Vuex.Store({
       });
 
       return promise;
+    },
+
+    postMessage({ commit }, { conversation, content }) {
+      const promise = Vue.prototype.$client.postMessage(
+        conversation.id,
+        content
+      );
+
+      promise.then(({ message }) => {
+        conversation.messages.push(message);
+        commit("upsertConversation", {
+          conversation
+        });
+      });
+
+      return promise;
     }
   }
 });

@@ -59,281 +59,7 @@
       <div class="conversation-main">
         <div class="conversation-body" id="scroll">
           <div class="wrapper">
-            <div class="time">01:32:08</div>
-            <div class="message mine">
-              <div class="bubble top bottom">Hello les amis !</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Supprimer" class="circular trash icon"></i
-                ><i title="Editer" class="circular edit icon"></i
-                ><i title="Répondre" class="circular reply icon"></i>
-              </div>
-            </div>
-            <div class="time">01:32:14</div>
-            <div class="message">
-              <img
-                title="Bob"
-                src="https://source.unsplash.com/7omHUGhhmZ0/100x100"
-              />
-              <div class="bubble top bottom">Hello !</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Répondre" class="circular reply icon"></i
-                ><span class="react"
-                  ><i title="Aimer" class="circular heart outline icon"></i
-                  ><i
-                    title="Pouce en l'air"
-                    class="circular thumbs up outline icon"
-                  ></i
-                  ><i title="Content" class="circular smile outline icon"></i
-                  ><i
-                    title="Pas content"
-                    class="circular frown outline icon"
-                  ></i
-                ></span>
-              </div>
-            </div>
-            <div class="message">
-              <img
-                title="Alice"
-                src="https://source.unsplash.com/mK_sjD0FrXw/100x100"
-              />
-              <div class="bubble top bottom">Coucou !</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Répondre" class="circular reply icon"></i
-                ><span class="react"
-                  ><i title="Aimer" class="circular heart outline icon"></i
-                  ><i
-                    title="Pouce en l'air"
-                    class="circular thumbs up outline icon"
-                  ></i
-                  ><i title="Content" class="circular smile outline icon"></i
-                  ><i
-                    title="Pas content"
-                    class="circular frown outline icon"
-                  ></i
-                ></span>
-              </div>
-            </div>
-            <div class="time">01:32:31</div>
-            <div class="message mine">
-              <div class="bubble top bottom">Vous allez bien ?</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Supprimer" class="circular trash icon"></i
-                ><i title="Editer" class="circular edit icon"></i
-                ><i title="Répondre" class="circular reply icon"></i>
-              </div>
-            </div>
-            <div class="time">01:32:38</div>
-            <div class="message">
-              <img
-                title="Alice"
-                src="https://source.unsplash.com/mK_sjD0FrXw/100x100"
-              />
-              <div class="bubble top bottom">Oui ça va et toi ?</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Répondre" class="circular reply icon"></i
-                ><span class="react"
-                  ><i title="Aimer" class="circular heart outline icon"></i
-                  ><i
-                    title="Pouce en l'air"
-                    class="circular thumbs up outline icon"
-                  ></i
-                  ><i title="Content" class="circular smile outline icon"></i
-                  ><i
-                    title="Pas content"
-                    class="circular frown outline icon"
-                  ></i
-                ></span>
-              </div>
-            </div>
-            <div class="time">01:32:48</div>
-            <div class="message mine">
-              <div class="bubble top">Ca va super !</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Supprimer" class="circular trash icon"></i
-                ><i title="Editer" class="circular edit icon"></i
-                ><i title="Répondre" class="circular reply icon"></i>
-              </div>
-            </div>
-            <div class="message mine">
-              <div class="bubble middle">
-                Je viens de découvrir ce nouveau chat
-              </div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Supprimer" class="circular trash icon"></i
-                ><i title="Editer" class="circular edit icon"></i
-                ><i title="Répondre" class="circular reply icon"></i>
-              </div>
-            </div>
-            <div class="message mine">
-              <div class="bubble bottom">C'est vraiment chouette</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Supprimer" class="circular trash icon"></i
-                ><i title="Editer" class="circular edit icon"></i
-                ><i title="Répondre" class="circular reply icon"></i>
-              </div>
-            </div>
-            <div class="time">01:33:32</div>
-            <div class="message">
-              <div class="bubble top">Oui je l'aime beaucoup aussi</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Répondre" class="circular reply icon"></i
-                ><span class="react"
-                  ><i title="Aimer" class="circular heart outline icon"></i
-                  ><i
-                    title="Pouce en l'air"
-                    class="circular thumbs up outline icon"
-                  ></i
-                  ><i title="Content" class="circular smile outline icon"></i
-                  ><i
-                    title="Pas content"
-                    class="circular frown outline icon"
-                  ></i
-                ></span>
-              </div>
-            </div>
-            <div class="message">
-              <div class="bubble middle">
-                <p class="reply_content">C'est vraiment chouette</p>
-                On peut répondre à un message
-              </div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Répondre" class="circular reply icon"></i
-                ><span class="react"
-                  ><i title="Aimer" class="circular heart outline icon"></i
-                  ><i
-                    title="Pouce en l'air"
-                    class="circular thumbs up outline icon"
-                  ></i
-                  ><i title="Content" class="circular smile outline icon"></i
-                  ><i
-                    title="Pas content"
-                    class="circular frown outline icon"
-                  ></i
-                ></span>
-              </div>
-            </div>
-            <div class="message">
-              <img
-                title="Bob"
-                src="https://source.unsplash.com/7omHUGhhmZ0/100x100"
-              />
-              <div class="bubble bottom">Ou bien y réagir</div>
-              <div class="reacts">
-                <i title="Aimer" class="circular heart outline icon">1</i>
-              </div>
-              <div class="controls">
-                <i title="Répondre" class="circular reply icon"></i
-                ><span class="react"
-                  ><i title="Aimer" class="circular heart outline icon"></i
-                  ><i
-                    title="Pouce en l'air"
-                    class="circular thumbs up outline icon"
-                  ></i
-                  ><i title="Content" class="circular smile outline icon"></i
-                  ><i
-                    title="Pas content"
-                    class="circular frown outline icon"
-                  ></i
-                ></span>
-              </div>
-            </div>
-            <div class="message">
-              <img
-                title="Alice"
-                src="https://source.unsplash.com/mK_sjD0FrXw/100x100"
-              />
-              <div class="bubble top bottom">
-                On peut même éditer ou supprimer des messages !
-              </div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Répondre" class="circular reply icon"></i
-                ><span class="react"
-                  ><i title="Aimer" class="circular heart outline icon"></i
-                  ><i
-                    title="Pouce en l'air"
-                    class="circular thumbs up outline icon"
-                  ></i
-                  ><i title="Content" class="circular smile outline icon"></i
-                  ><i
-                    title="Pas content"
-                    class="circular frown outline icon"
-                  ></i
-                ></span>
-              </div>
-            </div>
-            <div class="view">
-              <img
-                title="Vu par Bob à 01:35:50"
-                src="https://source.unsplash.com/7omHUGhhmZ0/100x100"
-              />
-            </div>
-
-            <div class="time">01:36:24</div>
-            <div class="message mine">
-              <div class="bubble top bottom">
-                Et on peut voir qui a vu un message ou non ?
-              </div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Supprimer" class="circular trash icon"></i
-                ><i title="Editer" class="circular edit icon"></i
-                ><i title="Répondre" class="circular reply icon"></i>
-              </div>
-            </div>
-            <div class="time">01:36:31</div>
-            <div class="message">
-              <img
-                title="Alice"
-                src="https://source.unsplash.com/mK_sjD0FrXw/100x100"
-              />
-              <div class="bubble top bottom">Oui !</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Répondre" class="circular reply icon"></i
-                ><span class="react"
-                  ><i title="Aimer" class="circular heart outline icon"></i
-                  ><i
-                    title="Pouce en l'air"
-                    class="circular thumbs up outline icon"
-                  ></i
-                  ><i title="Content" class="circular smile outline icon"></i
-                  ><i
-                    title="Pas content"
-                    class="circular frown outline icon"
-                  ></i
-                ></span>
-              </div>
-            </div>
-            <div class="time">01:36:38</div>
-            <div class="message mine">
-              <div class="bubble top bottom">Incroyable !</div>
-              <div class="reacts"></div>
-              <div class="controls">
-                <i title="Supprimer" class="circular trash icon"></i
-                ><i title="Editer" class="circular edit icon"></i
-                ><i title="Répondre" class="circular reply icon"></i>
-              </div>
-            </div>
-            <div class="view">
-              <img
-                title="Vu par Alice à 01:36:39"
-                src="https://source.unsplash.com/mK_sjD0FrXw/100x100"
-              /><img
-                title="Vu par Gael à 01:36:39"
-                src="https://source.unsplash.com/OYH7rc2a3LA/100x100"
-              />
-            </div>
+            <message v-for="item in messages" :key="item.id" :type="item.type" :msg="item.msg"></message>
           </div>
         </div>
         <!--        <div class="typing">-->
@@ -354,11 +80,13 @@
             <div class="ui fluid search">
               <div class="ui icon input">
                 <input
+                  v-model="msgInWrite"
                   class="prompt"
                   type="text"
                   placeholder="Rédiger un message"
+                  @keyup.enter="sendMsg()"
                 />
-                <i class="send icon"></i>
+                <i class="send icon link" @click="sendMsg()"></i>
               </div>
             </div>
           </div>
@@ -373,14 +101,16 @@
 
 <script>
 import Group from "@/components/Group/Group";
+import Message from "@/components/Message/Message";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Conversation",
-  components: { Group },
+  components: { Group, Message },
   data() {
     return {
-      groupPanel: false
+      groupPanel: false,
+      msgInWrite: ""
     };
   },
   mounted() {
@@ -390,10 +120,36 @@ export default {
     this.scrollBottom();
   },
   computed: {
-    ...mapGetters(["conversation"])
+    ...mapGetters(["user", "conversation"]),
+    messages() {
+      let listMessages = [];
+      let previousUser = null;
+      this.conversation.messages.forEach(msg => {
+        if (((previousUser == this.user.username) && (msg.from != this.user.username)) || ((previousUser != this.user.username) && (msg.from == this.user.username))) {
+          listMessages.push({ type: "time", msg: msg });
+        }
+        previousUser = msg.from;
+        if (msg.from != this.user.username) {
+          listMessages.push({ type: "message", msg: msg });
+        }
+        if (msg.from == this.user.username) {
+          listMessages.push({ type: "message mine", msg: msg });
+        }
+        let listView = [];
+        for (const user in this.conversation.seen) {
+          if (this.conversation.seen[user].message_id == msg.id) {
+            listView.push(user);
+          }
+        }
+        if (listView.length != 0) {
+          listMessages.push({ type: "view", seen: listView });
+        }
+      })
+      return listMessages;
+    }
   },
   methods: {
-    ...mapActions([]),
+    ...mapActions(["postMessage"]),
     scrollBottom() {
       setTimeout(() => {
         let scrollElement = document.querySelector("#scroll");
@@ -403,6 +159,16 @@ export default {
           ).scrollHeight;
         }
       }, 0);
+    },
+    sendMsg() {
+      const promise = this.postMessage({
+        conversation: this.conversation,
+        content: this.msgInWrite
+      });
+
+      promise.finally(() => {
+        this.msgInWrite = "";
+      });
     }
   },
   watch: {

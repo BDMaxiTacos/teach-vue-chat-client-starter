@@ -1,0 +1,146 @@
+.time {
+    text-align: center;
+}
+
+.message {
+    color: black;
+    padding: 2.5px 0;
+    display: flex;
+}
+
+.mine {
+}
+
+.message img {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    margin-right: 10px;
+    align-self: end;
+}
+
+.bubble {
+    margin-left: 42px;
+}
+
+img + .bubble {
+    margin-left: 0;
+}
+
+.bubble {
+    background: #f1f0f0;
+    padding: 6px 16px;
+    border-radius: 16px;
+}
+
+.bubble.top.bottom {
+    border-radius: 16px !important;
+}
+
+.mine {
+    justify-content: end;
+    flex-direction: row-reverse;
+}
+
+.mine .bubble {
+    background: #0099ff;
+    color: white;
+}
+
+.message.mine .top.bubble {
+    border-bottom-right-radius: 0;
+}
+
+.message.mine .middle.bubble {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.message.mine .bottom.bubble {
+    border-top-right-radius: 0;
+}
+
+.message:not(.mine) .top.bubble {
+    border-bottom-left-radius: 0;
+}
+
+.message:not(.mine) .middle.bubble {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.message:not(.mine) .bottom.bubble {
+    border-top-left-radius: 0;
+}
+
+.view {
+    text-align: center;
+}
+
+.view img {
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    margin: 0 4px;
+}
+
+.message .controls {
+    align-items: center;
+    min-width: 190px;
+    display: none;
+}
+
+.message .reacts {
+    align-items: center;
+    min-width: 190px;
+    display: flex;
+}
+
+.mine .reacts {
+    justify-content: flex-end;
+}
+
+.message:hover .controls {
+    display: flex;
+}
+
+.message:hover .reacts {
+    display: none;
+}
+
+.message i {
+    margin: 0 0 0 10px;
+    cursor: pointer;
+}
+
+.message.mine .bubble {
+    margin-left: 0;
+}
+
+.message.mine i {
+    margin: 0 10px 0 0;
+}
+
+.mine .controls {
+    justify-content: flex-end;
+}
+
+.react * {
+    transition: opacity 0.3s;
+    opacity: 0 !important;
+}
+
+.react .heart {
+    opacity: 1 !important;
+}
+
+.message:hover * {
+    opacity: 1 !important;
+}
+
+.reply_content {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 3px 5px;
+    border-radius: 6px;
+    font-size: 80%;
+}

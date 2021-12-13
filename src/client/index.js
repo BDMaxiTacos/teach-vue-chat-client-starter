@@ -64,6 +64,6 @@ export default function install(Vue, store) {
   });
 
   client.on("usersAvailable", async ({ usernames }) => {
-    // store.commit("", { usernames });
+    store.commit("updateUsers", { usernames });
   });
 }

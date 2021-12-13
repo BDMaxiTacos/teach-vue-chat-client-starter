@@ -59,7 +59,8 @@ export default new Vuex.Store({
           let boolSeen;
           if (convuser.find(u => state.user.username === u.username)) {
             boolSeen =
-              conversation.seen[state.user.username] === -1 ||
+              conversation.seen[state.user.username] === -1 &&
+              conversation.messages.length > 0 &&
               conversation.seen[state.user.username].message_id !==
                 conversation.messages[conversation.messages.length - 1].id;
           }
@@ -104,7 +105,6 @@ export default new Vuex.Store({
     setConversations(state, convs) {
       state.conversations = convs;
     },
-
     upsertUser(state, { user }) {
       const localUserIndex = state.users.findIndex(
         _user => _user.username === user.username
@@ -118,7 +118,6 @@ export default new Vuex.Store({
         });
       }
     },
-
     upsertConversation(state, { conversation }) {
       const localConversationIndex = state.conversations.findIndex(
         findConv => findConv.id === conversation.id
@@ -157,6 +156,34 @@ export default new Vuex.Store({
           ...message
         });
       }
+    },
+    updateUsers(state, { usernames }) {
+
+      state.users.forEach(awakeU => {
+        if (!usernames.includes(awakeU.username)){
+          awakeU.awake = false;
+
+        }
+      });
+
+      usernames.forEach(username => {
+        let user = state.users.filter(_user => _user.username === username)[0];
+        if (user) {
+          const localUserIndex = state.users.findIndex(
+            _user => _user.username === user.username
+          );
+
+          user.awake = true;
+
+          if (localUserIndex !== -1) {
+            Vue.set(state.users, localUserIndex, user);
+          } else {
+            state.users.push({
+              ...user
+            });
+          }
+        }
+      });
     }
   },
   actions: {
@@ -181,29 +208,24 @@ export default new Vuex.Store({
           commit("setAuthenticating", false);
         });
     },
-
     deauthenticate() {
       localStorage.removeItem("password");
       window.location.reload();
     },
-
     initializeAfterAuthentication({ dispatch }) {
       dispatch("fetchUsers");
       dispatch("fetchConversations");
     },
-
     fetchUsers({ commit }) {
       Vue.prototype.$client.getUsers().then(({ users }) => {
         commit("setUsers", users);
       });
     },
-
     fetchConversations({ commit }) {
       Vue.prototype.$client.getConversations().then(({ conversations }) => {
         commit("setConversations", conversations);
       });
     },
-
     createOneToOneConversation({ commit }, username) {
       const promise = Vue.prototype.$client.getOrCreateOneToOneConversation(
         username
@@ -222,7 +244,6 @@ export default new Vuex.Store({
 
       return promise;
     },
-
     createManyToManyConversation({ commit }, usernames) {
       const promise = Vue.prototype.$client.createManyToManyConversation(
         usernames

@@ -4,11 +4,16 @@
     <div v-if="isTime" class="time">{{ msg.posted_at }}</div>
 
     <div v-if="isMessage" class="message">
-      <img
-        title="Alice"
-        src="https://source.unsplash.com/mK_sjD0FrXw/100x100"
-      />
-      <div class="bubble top bottom">{{ msg.content }}</div>
+			<img
+			:title="getUser.username"
+			:src="getUser.picture_url"
+			/>
+			<div class="bubble top bottom">
+				<p v-if="msg.reply_to" class="reply_content">
+					{{ msg.reply_to.content }}
+				</p>
+				{{ msg.content }}
+			</div>
       <div class="reacts">
         <i v-if="msg.heart >= 1" title="Aimer" class="circular heart up outline icon">{{ msg.heart }}</i>
         <i v-if="msg.thumb >= 1" title="Pouce en l'air" class="circular thumbs up outline icon">{{ msg.thumb }}</i>
@@ -19,49 +24,58 @@
         <i title="Répondre" class="circular reply icon"></i>
         <span class="react">
           <i
-            title="Aimer"
-            class="circular heart outline icon"
-            @click="reactToMessage(conversation.id, msg.id, getHeart())"
+              title="Aimer"
+              class="circular heart outline icon"
+              @click="reactToMessage(conversation.id, msg.id, getHeart())"
           ></i>
           <i
-            title="Pouce en l'air"
-            class="circular thumbs up outline icon"
-            @click="reactToMessage(conversation.id, msg.id, getThumb())"
+              title="Pouce en l'air"
+              class="circular thumbs up outline icon"
+              @click="reactToMessage(conversation.id, msg.id, getThumb())"
           ></i>
           <i
-            title="Content"
-            class="circular smile outline icon"
-            @click="reactToMessage(conversation.id, msg.id, getHappy())"
+              title="Content"
+              class="circular smile outline icon"
+              @click="reactToMessage(conversation.id, msg.id, getHappy())"
           ></i>
           <i
-            title="Pas content"
-            class="circular frown outline icon"
-            @click="reactToMessage(conversation.id, msg.id, getSad())"
+              title="Pas content"
+              class="circular frown outline icon"
+              @click="reactToMessage(conversation.id, msg.id, getSad())"
           ></i>
       </span>
       </div>
-    </div>
+		</div>
 
     <div v-if="isMessageMine" class="message mine">
-      <div class="bubble top bottom">{{ msg.content }}</div>
-      <div class="reacts"></div>
-      <div class="controls">
-        <i title="Supprimer" class="circular trash icon"></i
-        ><i title="Editer" class="circular edit icon"></i
-        ><i title="Répondre" class="circular reply icon"></i>
+      <div class="bubble top bottom">
+				<p v-if="msg.reply_to" class="reply_content">
+					{{ msg.reply_to.content }}
+				</p>
+				{{ msg.content }}
+			</div>
+      <div class="reacts">
+        <i v-if="msg.heart >= 1" title="Aimer" class="circular heart up outline icon">{{ msg.heart }}</i>
+        <i v-if="msg.thumb >= 1" title="Pouce en l'air" class="circular thumbs up outline icon">{{ msg.thumb }}</i>
+        <i v-if="msg.happy >= 1" title="Content" class="circular smile up outline icon">{{ msg.happy }}</i>
+        <i v-if="msg.sad >= 1" title="Pas content" class="circular frown up outline icon">{{ msg.sad }}</i>
       </div>
-    </div>
+			<div class="controls">
+			<i title="Supprimer" class="circular trash icon"></i
+			><i title="Editer" class="circular edit icon"></i
+			><i title="Répondre" class="circular reply icon"></i>
+			</div>
+		</div>
 
     <div v-if="isView" class="view">
-      <img
-        title="Vu par Alice à 01:36:39"
-        src="https://source.unsplash.com/mK_sjD0FrXw/100x100"
-      /><img
-        title="Vu par Gael à 01:36:39"
-        src="https://source.unsplash.com/OYH7rc2a3LA/100x100"
-      />
-    </div>
-  </div>
+			<img
+			v-for="user in getSeen"
+			:key="user.id"
+			:title="user.username"
+			:src="user.picture_url"
+			/>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -90,6 +104,12 @@ export default {
     },
     isView() {
       return this.type == "view";
+    },
+    getUser() {
+      return this.$store.getters.users.find(el => el.username == this.msg.from);
+    },
+    getSeen() {
+      return this.$store.getters.users.filter(el => this.seen.includes(el.username));
     }
   },
   methods: {

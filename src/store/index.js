@@ -97,7 +97,7 @@ export default new Vuex.Store({
     },
     conversation(state, getters) {
       return getters.conversations.find(
-        el => el.id == state.currentConversationId
+        el => el.id === state.currentConversationId
       );
     }
   },
@@ -149,7 +149,10 @@ export default new Vuex.Store({
         conv.participants.includes(state.user.username)
       );
 
-      if (!conversation.isNotSeen && conversation.seen[state.user.username] !== -1){
+      if (
+        !conversation.isNotSeen &&
+        conversation.seen[state.user.username] !== -1
+      ) {
         conversation.seen[state.user.username].message_id =
           conversation.messages[conversation.messages.length - 1].id;
       }
@@ -177,7 +180,7 @@ export default new Vuex.Store({
     },
     updateUsers(state, { usernames }) {
       state.users.forEach(awakeU => {
-        if (!usernames.includes(awakeU.username)){
+        if (!usernames.includes(awakeU.username)) {
           awakeU.awake = false;
         }
       });
@@ -319,7 +322,21 @@ export default new Vuex.Store({
       );
 
       promise.then(({ message }) => {
-        conversation.messages.push(message);
+        commit("upsertConversation", {
+          conversation
+        });
+      });
+
+      return promise;
+    },
+    replyMessage({ commit }, { conversation, message_id, content }) {
+      const promise = Vue.prototype.$client.replyMessage(
+        conversation.id,
+        message_id,
+        content
+      );
+
+      promise.then(({ message }) => {
         commit("upsertConversation", {
           conversation
         });

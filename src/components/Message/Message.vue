@@ -15,7 +15,7 @@
 			</div>
 			<div class="reacts"></div>
 			<div class="controls">
-			<i title="Répondre" class="circular reply icon" @click="$emit('replyMsg', msg.id)"></i
+			<i title="Répondre" class="circular reply icon" @click="$emit('setReply', msg.id)"></i
 			><span class="react"
 				><i title="Aimer" class="circular heart outline icon"></i
 				><i

@@ -65,7 +65,7 @@
             :type="item.type"
             :msg="item.msg"
             :seen="item.seen"
-            @replyMsg="replyMsg($event)"
+            @setReply="setReply($event)"
             ></message>
           </div>
         </div>
@@ -76,13 +76,13 @@
         <!--        </div>-->
         <div class="conversation-footer">
           <div class="wrapper">
-            <!--            <p>-->
-            <!--              <i title="Abandonner" class="circular times small icon link"></i>-->
-            <!--              Répondre à Alice :-->
-            <!--              <span>-->
-            <!--                On peut même éditer ou supprimer des messages !-->
-            <!--              </span>-->
-            <!--            </p>-->
+            <p v-if="replyTo">
+              <i title="Abandonner" class="circular times small icon link" @click="resetReply()"></i>
+                Répondre à {{ replyTo.from }} :
+              <span>
+                {{ replyTo.content }}
+              </span>
+            </p>
 
             <div class="ui fluid search">
               <div class="ui icon input">
@@ -91,9 +91,9 @@
                   class="prompt"
                   type="text"
                   placeholder="Rédiger un message"
-                  @keyup.enter="sendMsg()"
+                  @keyup.enter="send()"
                 />
-                <i class="send icon link" @click="sendMsg()"></i>
+                <i class="send icon link" @click="send()"></i>
               </div>
             </div>
           </div>
@@ -117,7 +117,8 @@ export default {
   data() {
     return {
       groupPanel: false,
-      msgInWrite: ""
+      msgInWrite: "",
+      replyTo: null
     };
   },
   mounted() {
@@ -167,6 +168,13 @@ export default {
         }
       }, 0);
     },
+    send() {
+      if (this.replyTo == null) {
+        this.sendMsg();
+      } else {
+        this.replyMsg();
+      }
+    },
     sendMsg() {
       const promise = this.postMessage({
         conversation: this.conversation,
@@ -177,16 +185,23 @@ export default {
         this.msgInWrite = "";
       });
     },
-    replyMsg(id) {
+    replyMsg() {
       const promise = this.replyMessage({
         conversation: this.conversation,
-        message_id: id,
+        message_id: this.replyTo.id,
         content: this.msgInWrite
       });
 
       promise.finally(() => {
         this.msgInWrite = "";
+        this.replyTo = null
       });
+    },
+    setReply(id) {
+      this.replyTo = this.conversation.messages[id];
+    },
+    resetReply() {
+      this.replyTo = null;
     }
   },
   watch: {

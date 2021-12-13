@@ -7,10 +7,15 @@
 			:title="getUser.username"
 			:src="getUser.picture_url"
 			/>
-			<div class="bubble top bottom">{{ msg.content }}</div>
+			<div class="bubble top bottom">
+				<p v-if="msg.reply_to" class="reply_content">
+					{{ msg.reply_to.content }}
+				</p>
+				{{ msg.content }}
+			</div>
 			<div class="reacts"></div>
 			<div class="controls">
-			<i title="Répondre" class="circular reply icon"></i
+			<i title="Répondre" class="circular reply icon" @click="$emit('replyMsg', msg.id)"></i
 			><span class="react"
 				><i title="Aimer" class="circular heart outline icon"></i
 				><i
@@ -27,7 +32,12 @@
 		</div>
 
 		<div v-if="isMessageMine" class="message mine">
-			<div class="bubble top bottom">{{ msg.content }}</div>
+			<div class="bubble top bottom">
+				<p v-if="msg.reply_to" class="reply_content">
+					{{ msg.reply_to.content }}
+				</p>
+				{{ msg.content }}
+			</div>
 			<div class="reacts"></div>
 			<div class="controls">
 			<i title="Supprimer" class="circular trash icon"></i

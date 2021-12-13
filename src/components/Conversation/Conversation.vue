@@ -59,7 +59,14 @@
       <div class="conversation-main">
         <div class="conversation-body" id="scroll">
           <div class="wrapper">
-            <message v-for="item in messages" :key="item.id" :type="item.type" :msg="item.msg" :seen="item.seen"></message>
+            <message
+            v-for="item in messages"
+            :key="item.id"
+            :type="item.type"
+            :msg="item.msg"
+            :seen="item.seen"
+            @replyMsg="replyMsg($event)"
+            ></message>
           </div>
         </div>
         <!--        <div class="typing">-->
@@ -149,7 +156,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["postMessage"]),
+    ...mapActions(["postMessage", "replyMessage"]),
     scrollBottom() {
       setTimeout(() => {
         let scrollElement = document.querySelector("#scroll");
@@ -163,6 +170,17 @@ export default {
     sendMsg() {
       const promise = this.postMessage({
         conversation: this.conversation,
+        content: this.msgInWrite
+      });
+
+      promise.finally(() => {
+        this.msgInWrite = "";
+      });
+    },
+    replyMsg(id) {
+      const promise = this.replyMessage({
+        conversation: this.conversation,
+        message_id: id,
         content: this.msgInWrite
       });
 

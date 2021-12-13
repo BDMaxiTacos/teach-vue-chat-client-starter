@@ -56,6 +56,7 @@
             :msg="item.msg"
             :seen="item.seen"
             @setReply="setReply($event)"
+            @setEdit="setEdit($event)"
             ></message>
           </div>
         </div>
@@ -72,6 +73,10 @@
               <span>
                 {{ replyTo.content }}
               </span>
+            </p>
+            <p v-else-if="edit">
+              <i title="Abandonner" class="circular times small icon link" @click="resetEdit()"></i>
+                Edition
             </p>
 
             <div class="ui fluid search">
@@ -108,6 +113,7 @@ export default {
     return {
       groupPanel: false,
       msgInWrite: "",
+      edit: null,
       replyTo: null
     };
   },
@@ -147,7 +153,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["postMessage", "replyMessage", "seeConversation"]),
+    ...mapActions(["postMessage", "replyMessage", "seeConversation", "editMessage"]),
     scrollBottom() {
       setTimeout(() => {
         let scrollElement = document.querySelector("#scroll");
@@ -159,10 +165,14 @@ export default {
       }, 0);
     },
     send() {
-      if (this.replyTo == null) {
+      if (this.replyTo == null && this.edit == null) {
         this.sendMsg();
       } else {
-        this.replyMsg();
+        if (this.edit != null) {
+          this.editMsg();
+        } else {
+          this.replyMsg();
+        }
       }
     },
     sendMsg() {
@@ -174,6 +184,24 @@ export default {
       promise.finally(() => {
         this.msgInWrite = "";
       });
+    },
+    editMsg() {
+      const promise = this.editMessage({
+        conversation: this.conversation,
+        message_id: this.edit.id,
+        content: this.msgInWrite
+      });
+
+      promise.finally(() => {
+        this.msgInWrite = "";
+        this.edit = null;
+      });
+    },
+    setEdit(id) {
+      this.edit = this.conversation.messages[id];
+    },
+    resetEdit() {
+      this.edit = null;
     },
     replyMsg() {
       const promise = this.replyMessage({

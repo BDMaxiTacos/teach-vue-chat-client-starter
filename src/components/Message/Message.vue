@@ -3,78 +3,123 @@
     <div v-if="isTime" class="time">{{ msg.posted_at }}</div>
 
     <div v-if="isMessage" class="message">
-			<img
-			:title="getUser.username"
-			:src="getUser.picture_url"
-			/>
-			<div class="bubble top bottom">
-				<p v-if="msg.reply_to" class="reply_content">
-					{{ msg.reply_to.content }}
-				</p>
-				{{ msg.content }}
-			</div>
+      <img :title="getUser.username" :src="getUser.picture_url" />
+      <div class="bubble top bottom">
+        <p v-if="msg.reply_to" class="reply_content">
+          {{ msg.reply_to.content }}
+        </p>
+        {{ msg.content }}
+      </div>
       <div class="reacts">
-        <i v-if="msg.heart >= 1" title="Aimer" class="circular heart up outline icon">{{ msg.heart }}</i>
-        <i v-if="msg.thumb >= 1" title="Pouce en l'air" class="circular thumbs up outline icon">{{ msg.thumb }}</i>
-        <i v-if="msg.happy >= 1" title="Content" class="circular smile up outline icon">{{ msg.happy }}</i>
-        <i v-if="msg.sad >= 1" title="Pas content" class="circular frown up outline icon">{{ msg.sad }}</i>
+        <i
+          v-if="msg.heart >= 1"
+          title="Aimer"
+          class="circular heart up outline icon"
+          >{{ msg.heart }}</i
+        >
+        <i
+          v-if="msg.thumb >= 1"
+          title="Pouce en l'air"
+          class="circular thumbs up outline icon"
+          >{{ msg.thumb }}</i
+        >
+        <i
+          v-if="msg.happy >= 1"
+          title="Content"
+          class="circular smile up outline icon"
+          >{{ msg.happy }}</i
+        >
+        <i
+          v-if="msg.sad >= 1"
+          title="Pas content"
+          class="circular frown up outline icon"
+          >{{ msg.sad }}</i
+        >
       </div>
       <div class="controls">
-        <i title="Répondre" class="circular reply icon" @click="$emit('setReply', msg.id)"></i>
+        <i
+          title="Répondre"
+          class="circular reply icon"
+          @click="$emit('setReply', msg.id)"
+        ></i>
         <span class="react">
           <i
-              title="Aimer"
-              class="circular heart outline icon"
-              @click="reactToMessage(conversation.id, msg.id, getHeart())"
+            title="Aimer"
+            class="circular heart outline icon"
+            @click="reactToMessage(conversation.id, msg.id, getHeart())"
           ></i>
           <i
-              title="Pouce en l'air"
-              class="circular thumbs up outline icon"
-              @click="reactToMessage(conversation.id, msg.id, getThumb())"
+            title="Pouce en l'air"
+            class="circular thumbs up outline icon"
+            @click="reactToMessage(conversation.id, msg.id, getThumb())"
           ></i>
           <i
-              title="Content"
-              class="circular smile outline icon"
-              @click="reactToMessage(conversation.id, msg.id, getHappy())"
+            title="Content"
+            class="circular smile outline icon"
+            @click="reactToMessage(conversation.id, msg.id, getHappy())"
           ></i>
           <i
-              title="Pas content"
-              class="circular frown outline icon"
-              @click="reactToMessage(conversation.id, msg.id, getSad())"
+            title="Pas content"
+            class="circular frown outline icon"
+            @click="reactToMessage(conversation.id, msg.id, getSad())"
           ></i>
-      </span>
+        </span>
       </div>
-		</div>
+    </div>
 
     <div v-if="isMessageMine" class="message mine">
       <div class="bubble top bottom">
-				<p v-if="msg.reply_to" class="reply_content">
-					{{ msg.reply_to.content }}
-				</p>
-				{{ msg.content }}
-			</div>
-      <div class="reacts">
-        <i v-if="msg.heart >= 1" title="Aimer" class="circular heart up outline icon">{{ msg.heart }}</i>
-        <i v-if="msg.thumb >= 1" title="Pouce en l'air" class="circular thumbs up outline icon">{{ msg.thumb }}</i>
-        <i v-if="msg.happy >= 1" title="Content" class="circular smile up outline icon">{{ msg.happy }}</i>
-        <i v-if="msg.sad >= 1" title="Pas content" class="circular frown up outline icon">{{ msg.sad }}</i>
+        <p v-if="msg.reply_to" class="reply_content">
+          {{ msg.reply_to.content }}
+        </p>
+        {{ msg.content }}
       </div>
-			<div class="controls">
-			<i title="Supprimer" class="circular trash icon"></i
-			><i title="Editer" class="circular edit icon"></i
-			><i title="Répondre" class="circular reply icon"></i>
-			</div>
-		</div>
+      <div class="reacts">
+        <i
+          v-if="msg.heart >= 1"
+          title="Aimer"
+          class="circular heart up outline icon"
+          >{{ msg.heart }}</i
+        >
+        <i
+          v-if="msg.thumb >= 1"
+          title="Pouce en l'air"
+          class="circular thumbs up outline icon"
+          >{{ msg.thumb }}</i
+        >
+        <i
+          v-if="msg.happy >= 1"
+          title="Content"
+          class="circular smile up outline icon"
+          >{{ msg.happy }}</i
+        >
+        <i
+          v-if="msg.sad >= 1"
+          title="Pas content"
+          class="circular frown up outline icon"
+          >{{ msg.sad }}</i
+        >
+      </div>
+      <div class="controls">
+        <i title="Supprimer" class="circular trash icon"></i
+        ><i
+          title="Editer"
+          class="circular edit icon"
+          @click="$emit('setEdit', msg.id)"
+        ></i
+        ><i title="Répondre" class="circular reply icon"></i>
+      </div>
+    </div>
 
     <div v-if="isView" class="view">
-			<img
-			v-for="user in getSeen"
-			:key="user.id"
-			:title="user.username"
-			:src="user.picture_url"
-			/>
-		</div>
-	</div>
+      <img
+        v-for="user in getSeen"
+        :key="user.id"
+        :title="user.username"
+        :src="user.picture_url"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -108,7 +153,9 @@ export default {
       return this.$store.getters.users.find(el => el.username == this.msg.from);
     },
     getSeen() {
-      return this.$store.getters.users.filter(el => this.seen.includes(el.username));
+      return this.$store.getters.users.filter(el =>
+        this.seen.includes(el.username)
+      );
     }
   },
   methods: {
@@ -116,16 +163,16 @@ export default {
     reactToMessage(conversation_id, message_id, reaction) {
       this.reactMessage({ conversation_id, message_id, reaction });
     },
-    getHeart(){
+    getHeart() {
       return "HEART";
     },
-    getThumb(){
+    getThumb() {
       return "THUMB";
     },
-    getHappy(){
+    getHappy() {
       return "HAPPY";
     },
-    getSad(){
+    getSad() {
       return "SAD";
     }
   }

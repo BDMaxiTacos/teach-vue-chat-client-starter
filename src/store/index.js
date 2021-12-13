@@ -344,6 +344,21 @@ export default new Vuex.Store({
 
       return promise;
     },
+    editMessage({ commit }, { conversation, message_id, content }) {
+      const promise = Vue.prototype.$client.editMessage(
+        conversation.id,
+        message_id,
+        content
+      );
+
+      promise.then(({ message }) => {
+        commit("upsertConversation", {
+          conversation
+        });
+      });
+
+      return promise;
+    },
     seeConversation({ commit }, { conversation_id, message_id }) {
       const promise = Vue.prototype.$client.seeConversation(
         conversation_id,

@@ -19,9 +19,11 @@
         >{{ user.username }}<br /><i class="nickname"></i></span
       ><i title="Modifier le surnom" class="circular quote left link icon"></i
       ><i
+        v-if="conversation.user.length > 3"
         title="Enlever de la conversation"
         class="circular times icon link"
         style=""
+        @click="delParticipant(conversation, user)"
       ></i>
     </div>
     <div class="spanner">
@@ -32,7 +34,7 @@
     <div class="user" v-for="user in conversation.addUserList" :key="user.id">
       <img :src="user.picture_url" />
       <span>{{ user.username }} </span>
-      <i title="Ajouter à la conversation" class="circular plus icon link"></i>
+      <i title="Ajouter à la conversation" class="circular plus icon link" @click="newParticipant(conversation, user)"></i>
     </div>
   </div>
 </template>
@@ -51,9 +53,34 @@ export default {
     ...mapGetters(["conversation", "users"])
   },
   methods: {
-    ...mapActions([]),
+    ...mapActions(["addParticipant", "removeParticipant"]),
     logConv(conversation){
       console.log();
+    },
+    newParticipant(conversation, user) {
+      let promise;
+
+      this.conversation.addUserList.filter(u => u.username !== user.username);
+
+      promise = this.addParticipant({ conversation, user });
+
+      promise.finally(() => {
+        console.log("Utilisateur ajouté !");
+      });
+    },
+    delParticipant(conversation, user){
+      let promise;
+
+      if (user.username === conversation.you.username){
+        this.conversation.user.filter(u => u.username !== user.username);
+      }
+
+      promise = this.removeParticipant({ conversation, user });
+
+      promise.finally(() => {
+        console.log("Utilisateur supprimé !");
+
+      });
     }
   }
 };

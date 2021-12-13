@@ -15,7 +15,7 @@
       <span>Participants</span>
       <hr />
     </div>
-    <div v-for="user in conversation.user" :key="user.id" class="user">
+    <div v-for="user in filtreGroup" :key="user.id" class="user">
       <img :src="user.picture_url" /><span
         >{{ user.username }}<br /><i class="nickname"></i></span
       ><i title="Modifier le surnom" class="circular quote left link icon"></i
@@ -32,7 +32,7 @@
       <span>Communauté</span>
       <hr />
     </div>
-    <div class="user" v-for="user in conversation.addUserList" :key="user.id">
+    <div class="user" v-for="user in filtreAdd" :key="user.id">
       <img :src="user.picture_url" />
       <span>{{ user.username }} </span>
       <i title="Ajouter à la conversation" class="circular plus icon link" @click="newParticipant(conversation, user)"></i>
@@ -52,13 +52,22 @@ export default {
   },
   computed: {
     ...mapGetters(["conversation", "users"]),
-    filtre() {
+    filtreAdd() {
       if (this.search !== "") {
         return this.conversation.addUserList.filter(el =>
-            el.username.toLowerCase().includes(this.search.toLowerCase())
+          el.username.toLowerCase().includes(this.search.toLowerCase())
         );
       } else {
-        return this.$store.getters.users;
+        return this.conversation.addUserList;
+      }
+    },
+    filtreGroup() {
+      if (this.search !== "") {
+        return this.conversation.user.filter(el =>
+          el.username.toLowerCase().includes(this.search.toLowerCase())
+        );
+      } else {
+        return this.conversation.user;
       }
     }
   },

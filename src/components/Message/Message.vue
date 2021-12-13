@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ msg.reactions }}
     <div v-if="isTime" class="time">{{ msg.posted_at }}</div>
 
     <div v-if="isMessage" class="message">
@@ -21,7 +20,7 @@
         <i v-if="msg.sad >= 1" title="Pas content" class="circular frown up outline icon">{{ msg.sad }}</i>
       </div>
       <div class="controls">
-        <i title="Répondre" class="circular reply icon"></i>
+        <i title="Répondre" class="circular reply icon" @click="$emit('setReply', msg.id)"></i>
         <span class="react">
           <i
               title="Aimer"

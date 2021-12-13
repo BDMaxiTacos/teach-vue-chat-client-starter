@@ -59,7 +59,7 @@
       <div class="conversation-main">
         <div class="conversation-body" id="scroll">
           <div class="wrapper">
-            <message v-for="item in messages" :key="item.id" :type="item.type" :msg="item.msg"></message>
+            <message v-for="item in messages" :key="item.id" :type="item.type" :msg="item.msg" :seen="item.seen"></message>
           </div>
         </div>
         <!--        <div class="typing">-->

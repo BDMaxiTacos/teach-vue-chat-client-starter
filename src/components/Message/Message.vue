@@ -4,8 +4,8 @@
 
 		<div v-if="isMessage" class="message">
 			<img
-			title="Alice"
-			src="https://source.unsplash.com/mK_sjD0FrXw/100x100"
+			:title="getUser.username"
+			:src="getUser.picture_url"
 			/>
 			<div class="bubble top bottom">{{ msg.content }}</div>
 			<div class="reacts"></div>
@@ -38,11 +38,10 @@
 
 		<div v-if="isView" class="view">
 			<img
-			title="Vu par Alice à 01:36:39"
-			src="https://source.unsplash.com/mK_sjD0FrXw/100x100"
-			/><img
-			title="Vu par Gael à 01:36:39"
-			src="https://source.unsplash.com/OYH7rc2a3LA/100x100"
+			v-for="user in getSeen"
+			:key="user.id"
+			:title="user.username"
+			:src="user.picture_url"
 			/>
 		</div>
 	</div>
@@ -74,6 +73,12 @@ export default {
 	},
 	isView() {
 		return this.type == "view";
+	},
+	getUser() {
+		return this.$store.getters.users.find(el => el.username == this.msg.from);
+	},
+	getSeen() {
+		return this.$store.getters.users.filter(el => this.seen.includes(el.username));
 	}
   },
   methods: {

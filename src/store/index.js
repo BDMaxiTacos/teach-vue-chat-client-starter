@@ -331,12 +331,6 @@ export default new Vuex.Store({
         content
       );
 
-      promise.then(({ message }) => {
-        commit("upsertConversation", {
-          conversation
-        });
-      });
-
       return promise;
     },
     replyMessage({ commit }, { conversation, message_id, content }) {
@@ -346,12 +340,6 @@ export default new Vuex.Store({
         content
       );
 
-      promise.then(({ message }) => {
-        commit("upsertConversation", {
-          conversation
-        });
-      });
-
       return promise;
     },
     editMessage({ commit }, { conversation, message_id, content }) {
@@ -360,12 +348,6 @@ export default new Vuex.Store({
         message_id,
         content
       );
-
-      promise.then(({ message }) => {
-        commit("upsertConversation", {
-          conversation
-        });
-      });
 
       return promise;
     },

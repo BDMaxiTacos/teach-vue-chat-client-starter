@@ -191,7 +191,7 @@ export default {
       } else {
         if (this.edit != null) {
           this.editMsg();
-        } else {
+        } else if (this.replyTo != null) {
           this.replyMsg();
         }
       }

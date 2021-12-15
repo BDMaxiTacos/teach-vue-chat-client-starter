@@ -71,7 +71,11 @@
           <span v-if="conversation.user.length > 1">
             <i class="users icon img"> </i>
           </span>
-          <img v-if="conversation.user.length === 1" :src="conversation.user[0].picture_url" class="ui circular image" />
+          <img
+            v-if="conversation.user.length === 1"
+            :src="conversation.user[0].picture_url"
+            class="ui circular image"
+          />
         </a>
         <div class="content">
           <div class="metadata">
@@ -111,7 +115,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["deauthenticate","seeConversation"]),
+    ...mapActions(["deauthenticate", "seeConversation"]),
     openCommunity() {
       router.push({ name: "Community" });
     },
@@ -122,7 +126,7 @@ export default {
       router.push({ name: "GroupDev" });
     },
     openConversation(id, conversation) {
-      if(conversation.isNotSeen && conversation.messages.length > 0){
+      if (conversation.isNotSeen && conversation.messages.length > 0) {
         this.seeConversation({
           conversation_id: conversation.id,
           message_id: conversation.messages[conversation.messages.length - 1].id

@@ -162,19 +162,29 @@ export default new Vuex.Store({
         findConv => findConv.id === conversation_id
       );
 
-      const localMessageIndex = state.conversations[
-        localConversationIndex
-      ].messages.findIndex(findMsg => findMsg.id === message.id);
+      if (localConversationIndex !== -1) {
+        const localMessageIndex = state.conversations[
+          localConversationIndex
+        ].messages.findIndex(findMsg => findMsg.id === message.id);
 
-      if (localMessageIndex !== -1) {
-        Vue.set(
-          state.conversations[localConversationIndex].messages,
-          localMessageIndex,
-          message
-        );
+        if (localMessageIndex !== -1) {
+          Vue.set(
+            state.conversations[localConversationIndex].messages,
+            localMessageIndex,
+            message
+          );
+        } else {
+          state.conversations[localConversationIndex].messages.push({
+            ...message
+          });
+        }
       } else {
-        state.conversations[localConversationIndex].messages.push({
-          ...message
+        let conversation = state.conversations.find(
+          findConv => findConv.id === conversation_id
+        );
+
+        state.conversations.push({
+          ...conversation
         });
       }
     },

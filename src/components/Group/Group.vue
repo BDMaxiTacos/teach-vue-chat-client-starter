@@ -36,7 +36,11 @@
       <div class="user" v-for="user in filtreAdd" :key="user.id">
         <img :src="user.picture_url" />
         <span>{{ user.username }} </span>
-        <i title="Ajouter à la conversation" class="circular plus icon link" @click="newParticipant(conversation, user)"></i>
+        <i
+          title="Ajouter à la conversation"
+          class="circular plus icon link"
+          @click="newParticipant(conversation, user)"
+        ></i>
       </div>
     </div>
   </div>
@@ -49,7 +53,7 @@ export default {
   name: "Group",
   data() {
     return {
-      search: "",
+      search: ""
     };
   },
   computed: {
@@ -75,7 +79,7 @@ export default {
   },
   methods: {
     ...mapActions(["addParticipant", "removeParticipant"]),
-    logConv(conversation){
+    logConv(conversation) {
       console.log();
     },
     newParticipant(conversation, user) {
@@ -89,10 +93,10 @@ export default {
         console.log("Utilisateur ajouté !");
       });
     },
-    delParticipant(conversation, user){
+    delParticipant(conversation, user) {
       let promise;
 
-      if (user.username === conversation.you.username){
+      if (user.username === conversation.you.username) {
         this.conversation.user.filter(u => u.username !== user.username);
       }
 
@@ -100,7 +104,6 @@ export default {
 
       promise.finally(() => {
         console.log("Utilisateur supprimé !");
-
       });
     }
   }

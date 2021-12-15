@@ -17,7 +17,11 @@
 
     <div class="users">
       <div v-for="user in filtre" :key="user.id">
-        <div class="user" @click="selectUser(user)" :class="{ selected: isSelected(user) }">
+        <div
+          class="user"
+          @click="selectUser(user)"
+          :class="{ selected: isSelected(user) }"
+        >
           <img :src="user.picture_url" />
           <span :class="{ available: user.awake }">{{ user.username }}</span>
         </div>
@@ -74,7 +78,7 @@ export default {
     },
     selectUser(user) {
       let index = this.selected_users.indexOf(user);
-      if (index === -1){
+      if (index === -1) {
         this.selected_users.push(user);
       } else {
         this.selected_users = this.selected_users.filter(el => el !== user);

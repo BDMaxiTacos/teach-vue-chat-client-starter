@@ -68,12 +68,12 @@
         @click="openConversation(conversation.id, conversation)"
       >
         <a class="avatar">
-          <span v-if="conversation.user.length > 1">
+          <span v-if="conversation.otherUsers.length > 1">
             <i class="users icon img"> </i>
           </span>
           <img
-            v-if="conversation.user.length === 1"
-            :src="conversation.user[0].picture_url"
+            v-if="conversation.otherUsers.length === 1"
+            :src="conversation.otherUsers[0].picture_url"
             class="ui circular image"
           />
         </a>

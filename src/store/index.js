@@ -73,11 +73,14 @@ export default new Vuex.Store({
             you: state.user,
             userConnected: connected,
             user: convuser,
+            otherUsers: convuser.filter(
+              u => u.username !== state.user.username
+            ),
             addUserList: state.users.filter(user => !convuser.includes(user)),
             lastMessage: lastmsg,
             isNotSeen: boolSeen,
             isManyToMany: conversation.type === "many_to_many",
-            messages: conversation.messages.map(message => ({
+            messages: conversation.messages.map((message, index, tabMsgs) => ({
               ...message,
               heart: Object.values(message.reactions).filter(
                 react => react === "HEART"
@@ -90,7 +93,22 @@ export default new Vuex.Store({
               ).length,
               sad: Object.values(message.reactions).filter(
                 react => react === "SAD"
-              ).length
+              ).length,
+              isTop:
+                message.id === 0 ||
+                (tabMsgs[index - 1] &&
+                  tabMsgs[index - 1].from !== message.from),
+              isMiddle:
+                tabMsgs[index - 1] &&
+                tabMsgs[index - 1].from === message.from &&
+                tabMsgs[index + 1] &&
+                tabMsgs[index + 1].from === message.from,
+              isBottom:
+                message.id === tabMsgs[tabMsgs.length - 1].id ||
+                (tabMsgs[index + 1] &&
+                  tabMsgs[index + 1].from !== message.from),
+              isLast:
+                !tabMsgs[index + 1] || tabMsgs[index + 1].from !== message.from
             }))
           };
         });

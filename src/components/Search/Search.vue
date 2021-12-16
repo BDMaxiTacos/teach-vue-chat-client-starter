@@ -30,7 +30,9 @@
         </div>
         <div class="messages" v-for="message in conv.search" :key="message.id">
           <div class="message">
-            <div class="time">{{ message.posted_at }}</div>
+            <div class="time">
+              {{ formatDate(msg.posted_at) }}
+            </div>
             <div class="bubble">
               {{ message.content }}
             </div>
@@ -42,13 +44,14 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
+import { formatDate } from "../../../lib";
 
 export default {
   name: "Search",
   data() {
     return {
-      search: "",
+      search: ""
     };
   },
   computed: {

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-if="isTime" class="time">{{ msg.posted_at }}</div>
+    <div v-if="isTime" class="time">
+      {{ formatDate(msg.posted_at) }}
+    </div>
 
     <div v-if="isMessage" class="message">
       <img
@@ -138,6 +140,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { formatDate } from "../../../lib";
 
 export default {
   name: "Message",

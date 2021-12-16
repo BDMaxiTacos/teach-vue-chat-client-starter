@@ -203,6 +203,27 @@ export default new Vuex.Store({
           }
         }
       });
+    },
+    deleteMsg(state, { conversation_id, message_id }) {
+      const localConversationIndex = state.conversations.findIndex(
+        findConv => findConv.id === conversation_id
+      );
+
+      if (localConversationIndex !== -1) {
+        const localMessageIndex = state.conversations[
+          localConversationIndex
+        ].messages.findIndex(findMsg => findMsg.id === message_id);
+
+        if (localMessageIndex !== -1) {
+          Vue.set(
+            state.conversations[localConversationIndex].messages[
+              localMessageIndex
+            ],
+            "deleted",
+            true
+          );
+        }
+      }
     }
   },
   actions: {
@@ -357,6 +378,14 @@ export default new Vuex.Store({
         conversation_id,
         message_id,
         reaction
+      );
+
+      return promise;
+    },
+    deleteMessage({ commit }, { conversation_id, message_id }) {
+      const promise = Vue.prototype.$client.deleteMessage(
+        conversation_id,
+        message_id
       );
 
       return promise;

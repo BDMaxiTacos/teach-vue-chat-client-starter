@@ -5,12 +5,16 @@
         <span v-if="conversation.user.length > 1">
           <i class="users icon img"> </i>
         </span>
-        <img v-if="conversation.user.length === 1" :src="conversation.user[0].picture_url" class="ui circular image" />
+        <img
+          v-if="conversation.user.length === 1"
+          :src="conversation.user[0].picture_url"
+          class="ui circular image"
+        />
       </a>
 
       <div class="title">
         <div class="ui compact">
-          <i class="icon" :class="{circle: conversation.userConnected}"></i>
+          <i class="icon" :class="{ circle: conversation.userConnected }"></i>
           <span>
             {{ conversation.title }}
           </span>
@@ -50,12 +54,12 @@
         <div class="conversation-body" id="scroll">
           <div class="wrapper">
             <message
-            v-for="item in messages"
-            :key="item.id"
-            :type="item.type"
-            :msg="item.msg"
-            :seen="item.seen"
-            @setReply="setReply($event)"
+              v-for="item in messages"
+              :key="item.id"
+              :type="item.type"
+              :msg="item.msg"
+              :seen="item.seen"
+              @setReply="setReply($event)"
             ></message>
           </div>
         </div>
@@ -123,26 +127,33 @@ export default {
       let listMessages = [];
       let previousUser = null;
       this.conversation.messages.forEach(msg => {
-        if (((previousUser == this.user.username) && (msg.from != this.user.username)) || ((previousUser != this.user.username) && (msg.from == this.user.username))) {
-          listMessages.push({ type: "time", msg: msg });
-        }
-        previousUser = msg.from;
-        if (msg.from != this.user.username) {
-          listMessages.push({ type: "message", msg: msg });
-        }
-        if (msg.from == this.user.username) {
-          listMessages.push({ type: "message mine", msg: msg });
-        }
-        let listView = [];
-        for (const user in this.conversation.seen) {
-          if (this.conversation.seen[user].message_id == msg.id) {
-            listView.push(user);
+        if (msg.deleted === false) {
+          if (
+            (previousUser == this.user.username &&
+              msg.from != this.user.username) ||
+            (previousUser != this.user.username &&
+              msg.from == this.user.username)
+          ) {
+            listMessages.push({ type: "time", msg: msg });
+          }
+          previousUser = msg.from;
+          if (msg.from != this.user.username) {
+            listMessages.push({ type: "message", msg: msg });
+          }
+          if (msg.from == this.user.username) {
+            listMessages.push({ type: "message mine", msg: msg });
+          }
+          let listView = [];
+          for (const user in this.conversation.seen) {
+            if (this.conversation.seen[user].message_id == msg.id) {
+              listView.push(user);
+            }
+          }
+          if (listView.length != 0) {
+            listMessages.push({ type: "view", seen: listView });
           }
         }
-        if (listView.length != 0) {
-          listMessages.push({ type: "view", seen: listView });
-        }
-      })
+      });
       return listMessages;
     }
   },
@@ -184,7 +195,7 @@ export default {
 
       promise.finally(() => {
         this.msgInWrite = "";
-        this.replyTo = null
+        this.replyTo = null;
       });
     },
     setReply(id) {
@@ -198,7 +209,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     conversation(newConversation, oldConversation) {
       this.scrollBottom();
-      if(oldConversation.messages.length !== newConversation.messages.length){
+      if (oldConversation.messages.length !== newConversation.messages.length){
         this.seeConversation({
           conversation_id: newConversation.id,
           message_id:

@@ -3,8 +3,15 @@
     <div v-if="isTime" class="time">{{ msg.posted_at }}</div>
 
     <div v-if="isMessage" class="message">
-      <img v-if="msg.isLast" :title="getUser.username" :src="getUser.picture_url" />
-      <div class="bubble" :class="{ top: msg.isTop, middle: msg.isMiddle, bottom: msg.isBottom }">
+      <img
+        v-if="msg.isLast"
+        :title="getUser.username"
+        :src="getUser.picture_url"
+      />
+      <div
+        class="bubble"
+        :class="{ top: msg.isTop, middle: msg.isMiddle, bottom: msg.isBottom }"
+      >
         <p v-if="msg.reply_to" class="reply_content">
           {{ msg.reply_to.content }}
         </p>
@@ -68,7 +75,10 @@
     </div>
 
     <div v-if="isMessageMine" class="message mine">
-      <div class="bubble" :class="{ top: msg.isTop, middle: msg.isMiddle, bottom: msg.isBottom }">
+      <div
+        class="bubble"
+        :class="{ top: msg.isTop, middle: msg.isMiddle, bottom: msg.isBottom }"
+      >
         <p v-if="msg.reply_to" class="reply_content">
           {{ msg.reply_to.content }}
         </p>
@@ -101,7 +111,11 @@
         >
       </div>
       <div class="controls">
-        <i title="Supprimer" class="circular trash icon" @click="removeMessage(conversation.id, msg.id)"></i
+        <i
+          title="Supprimer"
+          class="circular trash icon"
+          @click="removeMessage(conversation.id, msg.id)"
+        ></i
         ><i
           title="Editer"
           class="circular edit icon"

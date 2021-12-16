@@ -157,15 +157,15 @@ export default {
           if (msg.from == this.user.username) {
             listMessages.push({ type: "message mine", msg: msg });
           }
-          let listView = [];
-          for (const user in this.conversation.seen) {
-            if (this.conversation.seen[user].message_id == msg.id) {
-              listView.push(user);
-            }
+        }
+        let listView = [];
+        for (const user in this.conversation.seen) {
+          if (this.conversation.seen[user].message_id == msg.id) {
+            listView.push(user);
           }
-          if (listView.length != 0) {
-            listMessages.push({ type: "view", seen: listView });
-          }
+        }
+        if (listView.length != 0) {
+          listMessages.push({ type: "view", seen: listView });
         }
       });
       return listMessages;

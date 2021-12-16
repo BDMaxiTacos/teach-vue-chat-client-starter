@@ -11,6 +11,7 @@
         :src="getUser.picture_url"
       />
       <div
+        v-if="!msg.deleted"
         class="bubble"
         :class="{ top: msg.isTop, middle: msg.isMiddle, bottom: msg.isBottom }"
       >
@@ -18,6 +19,14 @@
           {{ msg.reply_to.content }}
         </p>
         {{ msg.content }}
+      </div>
+      <div
+        v-else
+        class="bubble"
+        :class="{ top: msg.isTop, middle: msg.isMiddle, bottom: msg.isBottom }"
+        style="color: #B9B9B9"
+      >
+        <em>Message supprimé</em>
       </div>
       <div class="reacts">
         <i
@@ -78,6 +87,7 @@
 
     <div v-if="isMessageMine" class="message mine">
       <div
+        v-if="!msg.deleted"
         class="bubble"
         :class="{ top: msg.isTop, middle: msg.isMiddle, bottom: msg.isBottom }"
       >
@@ -85,6 +95,14 @@
           {{ msg.reply_to.content }}
         </p>
         {{ msg.content }}
+      </div>
+      <div
+        v-else
+        class="bubble"
+        :class="{ top: msg.isTop, middle: msg.isMiddle, bottom: msg.isBottom, deletedmsg: msg.deleted }"
+        style="color: #d9d9d9"
+      >
+        <em>Message supprimé</em>
       </div>
       <div class="reacts">
         <i
@@ -112,7 +130,7 @@
           >{{ msg.sad }}</i
         >
       </div>
-      <div class="controls">
+      <div class="controls" v-if="!msg.deleted">
         <i
           title="Supprimer"
           class="circular trash icon"

@@ -141,22 +141,20 @@ export default {
       let listMessages = [];
       let previousUser = null;
       this.conversation.messages.forEach(msg => {
-        if (msg.deleted === false) {
-          if (
-            (previousUser == this.user.username &&
-              msg.from != this.user.username) ||
-            (previousUser != this.user.username &&
-              msg.from == this.user.username)
-          ) {
-            listMessages.push({ type: "time", msg: msg });
-          }
-          previousUser = msg.from;
-          if (msg.from != this.user.username) {
-            listMessages.push({ type: "message", msg: msg });
-          }
-          if (msg.from == this.user.username) {
-            listMessages.push({ type: "message mine", msg: msg });
-          }
+        if (
+          (previousUser == this.user.username &&
+            msg.from != this.user.username) ||
+          (previousUser != this.user.username &&
+            msg.from == this.user.username)
+        ) {
+          listMessages.push({ type: "time", msg: msg });
+        }
+        previousUser = msg.from;
+        if (msg.from != this.user.username) {
+          listMessages.push({ type: "message", msg: msg });
+        }
+        if (msg.from == this.user.username) {
+          listMessages.push({ type: "message mine", msg: msg });
         }
         let listView = [];
         for (const user in this.conversation.seen) {

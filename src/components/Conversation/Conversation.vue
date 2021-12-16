@@ -129,12 +129,12 @@ export default {
       replyTo: null
     };
   },
-  mounted() {
-    this.scrollBottom();
-  },
-  updated() {
-    this.scrollBottom();
-  },
+  // mounted() {
+  //   this.scrollBottom();
+  // },
+  // updated() {
+  //   this.scrollBottom();
+  // },
   computed: {
     ...mapGetters(["user", "conversation"]),
     messages() {
@@ -246,8 +246,11 @@ export default {
   watch: {
     // eslint-disable-next-line no-unused-vars
     conversation(newConversation, oldConversation) {
-      this.scrollBottom();
-      if (oldConversation.messages.length !== newConversation.messages.length && newConversation.messages.length > 0) {
+      if (
+        oldConversation.messages.length !== newConversation.messages.length &&
+        newConversation.messages.length > 0
+      ) {
+        this.scrollBottom();
         this.seeConversation({
           conversation_id: newConversation.id,
           message_id:

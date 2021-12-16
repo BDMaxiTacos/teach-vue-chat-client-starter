@@ -99,7 +99,12 @@
       <div
         v-else
         class="bubble"
-        :class="{ top: msg.isTop, middle: msg.isMiddle, bottom: msg.isBottom, deletedmsg: msg.deleted }"
+        :class="{
+          top: msg.isTop,
+          middle: msg.isMiddle,
+          bottom: msg.isBottom,
+          deletedmsg: msg.deleted
+        }"
         style="color: #d9d9d9"
       >
         <em>Message supprimé</em>
@@ -213,7 +218,7 @@ export default {
     getSad() {
       return "SAD";
     },
-    reformatDate(date){
+    reformatDate(date) {
       return formatDate(date);
     }
   }

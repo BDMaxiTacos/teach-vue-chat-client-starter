@@ -141,28 +141,31 @@ export default {
       let listMessages = [];
       let previousUser = null;
       this.conversation.messages.forEach(msg => {
-        if (
-          (previousUser == this.user.username &&
-            msg.from != this.user.username) ||
-          (previousUser != this.user.username && msg.from == this.user.username)
-        ) {
-          listMessages.push({ type: "time", msg: msg });
-        }
-        previousUser = msg.from;
-        if (msg.from != this.user.username) {
-          listMessages.push({ type: "message", msg: msg });
-        }
-        if (msg.from == this.user.username) {
-          listMessages.push({ type: "message mine", msg: msg });
-        }
-        let listView = [];
-        for (const user in this.conversation.seen) {
-          if (this.conversation.seen[user].message_id == msg.id) {
-            listView.push(user);
+        if (msg.deleted === false) {
+          if (
+            (previousUser == this.user.username &&
+              msg.from != this.user.username) ||
+            (previousUser != this.user.username &&
+              msg.from == this.user.username)
+          ) {
+            listMessages.push({ type: "time", msg: msg });
           }
-        }
-        if (listView.length != 0) {
-          listMessages.push({ type: "view", seen: listView });
+          previousUser = msg.from;
+          if (msg.from != this.user.username) {
+            listMessages.push({ type: "message", msg: msg });
+          }
+          if (msg.from == this.user.username) {
+            listMessages.push({ type: "message mine", msg: msg });
+          }
+          let listView = [];
+          for (const user in this.conversation.seen) {
+            if (this.conversation.seen[user].message_id == msg.id) {
+              listView.push(user);
+            }
+          }
+          if (listView.length != 0) {
+            listMessages.push({ type: "view", seen: listView });
+          }
         }
       });
       return listMessages;

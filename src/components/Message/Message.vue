@@ -101,7 +101,7 @@
         >
       </div>
       <div class="controls">
-        <i title="Supprimer" class="circular trash icon"></i
+        <i title="Supprimer" class="circular trash icon" @click="removeMessage(conversation.id, msg.id)"></i
         ><i
           title="Editer"
           class="circular edit icon"
@@ -159,9 +159,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["reactMessage"]),
+    ...mapActions(["reactMessage", "deleteMessage"]),
     reactToMessage(conversation_id, message_id, reaction) {
       this.reactMessage({ conversation_id, message_id, reaction });
+    },
+    removeMessage(conversation_id, message_id) {
+      this.deleteMessage({ conversation_id, message_id });
     },
     getHeart() {
       return "HEART";

@@ -31,7 +31,7 @@
         <div class="messages" v-for="message in conv.search" :key="message.id">
           <div class="message">
             <div class="time">
-              {{ formatDate(msg.posted_at) }}
+              {{ reformatDate(message.posted_at) }}
             </div>
             <div class="bubble">
               {{ message.content }}
@@ -53,6 +53,11 @@ export default {
     return {
       search: ""
     };
+  },
+  methods: {
+    reformatDate(date) {
+      return formatDate(date);
+    }
   },
   computed: {
     ...mapGetters(["user", "conversations"]),

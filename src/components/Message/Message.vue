@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isTime" class="time">
-      {{ formatDate(msg.posted_at) }}
+      {{ reformatDate(msg.posted_at) }}
     </div>
 
     <div v-if="isMessage" class="message">
@@ -212,6 +212,9 @@ export default {
     },
     getSad() {
       return "SAD";
+    },
+    reformatDate(date){
+      return formatDate(date);
     }
   }
 };

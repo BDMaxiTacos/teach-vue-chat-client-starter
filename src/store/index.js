@@ -66,7 +66,10 @@ export default new Vuex.Store({
 
           if (!conversation.title) {
             tabpart = tabpart.filter(s => s !== state.user.username);
-            conversation.title = tabpart.join(", ");
+            conversation.title = tabpart.join(", ").slice(0, 20);
+            conversation.title =
+              conversation.title +
+              (conversation.title.length >= 20 ? "..." : "");
           }
           return {
             ...conversation,

@@ -1,4 +1,4 @@
-function formatDate(date) {
+export function formatDate(date) {
   return new Intl.DateTimeFormat("fr", {
     year: "numeric",
     month: "numeric",
@@ -6,5 +6,5 @@ function formatDate(date) {
     hour: "numeric",
     minute: "numeric",
     timeZone: "UTC"
-  }).format(date);
+  }).format(new Date(date));
 }

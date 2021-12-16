@@ -9,6 +9,7 @@
           v-if="conversation.user.length === 1"
           :src="conversation.user[0].picture_url"
           class="ui circular image"
+          :alt="conversation.user.username"
         />
       </a>
 

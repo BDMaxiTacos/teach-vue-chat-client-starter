@@ -145,8 +145,7 @@ export default {
         if (
           (previousUser == this.user.username &&
             msg.from != this.user.username) ||
-          (previousUser != this.user.username &&
-            msg.from == this.user.username)
+          (previousUser != this.user.username && msg.from == this.user.username)
         ) {
           listMessages.push({ type: "time", msg: msg });
         }

@@ -168,7 +168,7 @@ export default new Vuex.Store({
       );
 
       if (
-        !conversation.isNotSeen &&
+        conversation.isNotSeen &&
         conversation.seen[state.user.username] !== -1
       ) {
         conversation.seen[state.user.username].message_id =
@@ -180,31 +180,31 @@ export default new Vuex.Store({
         findConv => findConv.id === conversation_id
       );
 
-      if (localConversationIndex !== -1) {
-        const localMessageIndex = state.conversations[
-          localConversationIndex
-        ].messages.findIndex(findMsg => findMsg.id === message.id);
+      let conversation = state.conversations.find(
+        findConv => findConv.id === conversation_id
+      );
 
-        if (localMessageIndex !== -1) {
-          Vue.set(
-            state.conversations[localConversationIndex].messages,
-            localMessageIndex,
-            message
-          );
-        } else {
-          state.conversations[localConversationIndex].messages.push({
-            ...message
-          });
-        }
-      } else {
-        let conversation = state.conversations.find(
-          findConv => findConv.id === conversation_id
+      conversation.isNotSeen =
+        conversation.messages.length > 0 &&
+        conversation.seen[state.user.username].message_id !== message.id;
+
+      const localMessageIndex = state.conversations[
+        localConversationIndex
+      ].messages.findIndex(findMsg => findMsg.id === message.id);
+
+      if (localMessageIndex !== -1) {
+        Vue.set(
+          state.conversations[localConversationIndex].messages,
+          localMessageIndex,
+          message
         );
-
-        state.conversations.push({
-          ...conversation
+      } else {
+        state.conversations[localConversationIndex].messages.push({
+          ...message
         });
       }
+
+      Vue.set(state.conversations, localConversationIndex, conversation);
     },
     updateUsers(state, { usernames }) {
       state.users.forEach(awakeU => {

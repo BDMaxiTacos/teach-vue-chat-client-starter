@@ -247,7 +247,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     conversation(newConversation, oldConversation) {
       this.scrollBottom();
-      if (oldConversation.messages.length !== newConversation.messages.length) {
+      if (oldConversation.messages.length !== newConversation.messages.length && newConversation.messages.length > 0) {
         this.seeConversation({
           conversation_id: newConversation.id,
           message_id:
